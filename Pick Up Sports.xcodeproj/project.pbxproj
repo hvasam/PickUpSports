@@ -7,14 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C8A42C91018B0F68BFD7B0BC /* Pods_Pick_Up_Sports.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0391885BC5FBFC3E739A4FE /* Pods_Pick_Up_Sports.framework */; };
+		F92B2F021E874BC800D38038 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F92B2F011E874BC800D38038 /* GoogleService-Info.plist */; };
 		F962E4571E86EC0E00F73AF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962E4561E86EC0E00F73AF0 /* AppDelegate.swift */; };
 		F962E4591E86EC0E00F73AF0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962E4581E86EC0E00F73AF0 /* ViewController.swift */; };
 		F962E45C1E86EC0E00F73AF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F962E45A1E86EC0E00F73AF0 /* Main.storyboard */; };
 		F962E45E1E86EC0E00F73AF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F962E45D1E86EC0E00F73AF0 /* Assets.xcassets */; };
 		F962E4611E86EC0E00F73AF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F962E45F1E86EC0E00F73AF0 /* LaunchScreen.storyboard */; };
+		F9D7CB201E88DE6F00868CD4 /* UserHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D7CB1F1E88DE6F00868CD4 /* UserHomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5984623D7F6FBDEACE24BA03 /* Pods-Pick Up Sports.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pick Up Sports.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pick Up Sports/Pods-Pick Up Sports.debug.xcconfig"; sourceTree = "<group>"; };
+		9A55223340189166B6E6620D /* Pods-Pick Up Sports.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pick Up Sports.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pick Up Sports/Pods-Pick Up Sports.release.xcconfig"; sourceTree = "<group>"; };
+		A0391885BC5FBFC3E739A4FE /* Pods_Pick_Up_Sports.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pick_Up_Sports.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F92B2F001E871EF300D38038 /* Pick Up Sports.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pick Up Sports.entitlements"; sourceTree = "<group>"; };
+		F92B2F011E874BC800D38038 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F962E4531E86EC0E00F73AF0 /* Pick Up Sports.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pick Up Sports.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F962E4561E86EC0E00F73AF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F962E4581E86EC0E00F73AF0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +30,7 @@
 		F962E45D1E86EC0E00F73AF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F962E4601E86EC0E00F73AF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F962E4621E86EC0E00F73AF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F9D7CB1F1E88DE6F00868CD4 /* UserHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +38,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8A42C91018B0F68BFD7B0BC /* Pods_Pick_Up_Sports.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F342D4E8FFA45B3B1DCCA3A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A0391885BC5FBFC3E739A4FE /* Pods_Pick_Up_Sports.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		88D6518189C22A3AA4A9F32E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5984623D7F6FBDEACE24BA03 /* Pods-Pick Up Sports.debug.xcconfig */,
+				9A55223340189166B6E6620D /* Pods-Pick Up Sports.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F962E44A1E86EC0E00F73AF0 = {
 			isa = PBXGroup;
 			children = (
 				F962E4551E86EC0E00F73AF0 /* Pick Up Sports */,
 				F962E4541E86EC0E00F73AF0 /* Products */,
+				88D6518189C22A3AA4A9F32E /* Pods */,
+				6F342D4E8FFA45B3B1DCCA3A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,12 +83,15 @@
 		F962E4551E86EC0E00F73AF0 /* Pick Up Sports */ = {
 			isa = PBXGroup;
 			children = (
+				F92B2F001E871EF300D38038 /* Pick Up Sports.entitlements */,
 				F962E4561E86EC0E00F73AF0 /* AppDelegate.swift */,
 				F962E4581E86EC0E00F73AF0 /* ViewController.swift */,
 				F962E45A1E86EC0E00F73AF0 /* Main.storyboard */,
+				F9D7CB1F1E88DE6F00868CD4 /* UserHomeViewController.swift */,
 				F962E45D1E86EC0E00F73AF0 /* Assets.xcassets */,
 				F962E45F1E86EC0E00F73AF0 /* LaunchScreen.storyboard */,
 				F962E4621E86EC0E00F73AF0 /* Info.plist */,
+				F92B2F011E874BC800D38038 /* GoogleService-Info.plist */,
 			);
 			path = "Pick Up Sports";
 			sourceTree = "<group>";
@@ -71,9 +103,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F962E4651E86EC0E00F73AF0 /* Build configuration list for PBXNativeTarget "Pick Up Sports" */;
 			buildPhases = (
+				BC279B2E5BB25C381444CA34 /* [CP] Check Pods Manifest.lock */,
 				F962E44F1E86EC0E00F73AF0 /* Sources */,
 				F962E4501E86EC0E00F73AF0 /* Frameworks */,
 				F962E4511E86EC0E00F73AF0 /* Resources */,
+				4D8D94B2E60B8DB4CEB790F6 /* [CP] Embed Pods Frameworks */,
+				94403260D6A042E2673417C3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -98,6 +133,11 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = W43MDEG5N2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -125,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F962E4611E86EC0E00F73AF0 /* LaunchScreen.storyboard in Resources */,
+				F92B2F021E874BC800D38038 /* GoogleService-Info.plist in Resources */,
 				F962E45E1E86EC0E00F73AF0 /* Assets.xcassets in Resources */,
 				F962E45C1E86EC0E00F73AF0 /* Main.storyboard in Resources */,
 			);
@@ -132,11 +173,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4D8D94B2E60B8DB4CEB790F6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pick Up Sports/Pods-Pick Up Sports-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		94403260D6A042E2673417C3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pick Up Sports/Pods-Pick Up Sports-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC279B2E5BB25C381444CA34 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F962E44F1E86EC0E00F73AF0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9D7CB201E88DE6F00868CD4 /* UserHomeViewController.swift in Sources */,
 				F962E4591E86EC0E00F73AF0 /* ViewController.swift in Sources */,
 				F962E4571E86EC0E00F73AF0 /* AppDelegate.swift in Sources */,
 			);
@@ -182,6 +272,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -232,6 +323,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -259,8 +351,10 @@
 		};
 		F962E4661E86EC0E00F73AF0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5984623D7F6FBDEACE24BA03 /* Pods-Pick Up Sports.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Pick Up Sports/Pick Up Sports.entitlements";
 				DEVELOPMENT_TEAM = W43MDEG5N2;
 				INFOPLIST_FILE = "Pick Up Sports/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -272,8 +366,10 @@
 		};
 		F962E4671E86EC0E00F73AF0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A55223340189166B6E6620D /* Pods-Pick Up Sports.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Pick Up Sports/Pick Up Sports.entitlements";
 				DEVELOPMENT_TEAM = W43MDEG5N2;
 				INFOPLIST_FILE = "Pick Up Sports/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -302,6 +398,7 @@
 				F962E4671E86EC0E00F73AF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

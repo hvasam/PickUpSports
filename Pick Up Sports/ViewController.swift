@@ -6,8 +6,37 @@
 //  Copyright © 2017 Harshavardhan Vasam. All rights reserved.
 //
 
-// IMPORTANT: remove all fatalErrors() and substitute them with actual error handling solutions instead of crashing the App
-// errorCodeUserTokenExpired -- this error is thrown when the user changes their password if they're logged in on to a device
+// IMPORTANT: remove all fatalErrors() and substitute them with actual error handling solutions instead of letting the app crash
+
+// RELEVANT ERRORS:
+// errorCodeEmailAlreadyInUse = 17007 - Indicates the email used to attempt a sign up is already in use.
+// errorCodeInvalidEmail = 17008 - Indicates the email is invalid.
+// errorCodeWrongPassword = 17009 - Indicates the user attempted sign in with a wrong password.
+// errorCodeRequiresRecentLogin = 17014 - Indicates the user has attemped to change email or password more than 5 minutes after signing in.
+// errorCodeWeakPassword = 17026 - Indicates an attempt to set a password that is considered too weak.
+
+
+
+// Have to come up with a way to deal with the following:
+// Subset of errors that are COMMON to all Firebase apis:
+// errorCodeNetworkError = 17020 - Indicates a network error occurred (such as a timeout, interrupted connection, or unreachable host). These types of errors are often recoverable with a retry. The @c NSUnderlyingError field in the NSError.userInfo dictionary will contain the error encountered.
+// errorCodeUserNotFound = 17011 - Indicates the user account was not found. This could happen if the user account has been deleted.
+// errorCodeUserTokenExpired = 17021 - Indicates the saved token has expired, for example, the user may have changed account password on another device. The user needs to sign in again on the device that made this request.
+// errorCodeTooManyRequests = 17010 - Indicates that too many requests were made to a server method. Retry again after some time.
+// errorCodeInvalidAPIKey = 17023 - Indicates an invalid API key was supplied in the request.
+// errorCodeAppNotAuthorized = 17028 - Indicates the App is not authorized to use Firebase Authentication with the provided API Key.
+// errorCodeKeychainError = 17995 - Indicates an error occurred when accessing the keychain. The NSLocalizedFailureReasonErrorKey and NSUnderlyingErrorKey fields in the NSError.userInfo dictionary will contain more information about the error encountered.
+// errorCodeInternalError = 17999 - Indicates an internal error occurred.
+
+// Gray area: 
+// Auth provider errors? errorCodeProviderAlreadyLinked = 17015 vs errorCodeNoSuchProvider = 17016
+// errorCodeInvalidUserToken = 17017 - Indicates user’s saved auth credential is invalid, the user needs to sign in again.
+// errorCodeUserMismatch = 17024 - Indicates that an attempt was made to reauthenticate with a user which is not the current user.
+// errorCodeInvalidMessagePayload = 17031 - Indicates that there are invalid parameters in the payload during a send password reset * email attempt.
+// errorCodeInvalidSender = 17032 - Indicates that the sender email is invalid during a send password reset email attempt.
+// errorCodeInvalidRecipientEmail = 17033 - Indicates that the recipient email is invalid.
+// errorCodeCredentialTooOld -- deprecated?
+
 
 import UIKit
 import Firebase
@@ -188,10 +217,6 @@ class ViewController: UIViewController {
     /*
     func usernameIsAvailable(name: String) -> Bool {
         
-        // check availability
-    }
-    
-    func emailAddressIsAvailable(email: String) -> Bool {
         // check availability
     }
     */
