@@ -10,7 +10,7 @@
 		C8A42C91018B0F68BFD7B0BC /* Pods_Pick_Up_Sports.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0391885BC5FBFC3E739A4FE /* Pods_Pick_Up_Sports.framework */; };
 		F92B2F021E874BC800D38038 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F92B2F011E874BC800D38038 /* GoogleService-Info.plist */; };
 		F962E4571E86EC0E00F73AF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962E4561E86EC0E00F73AF0 /* AppDelegate.swift */; };
-		F962E4591E86EC0E00F73AF0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962E4581E86EC0E00F73AF0 /* ViewController.swift */; };
+		F962E4591E86EC0E00F73AF0 /* SignUpAndLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962E4581E86EC0E00F73AF0 /* SignUpAndLoginViewController.swift */; };
 		F962E45C1E86EC0E00F73AF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F962E45A1E86EC0E00F73AF0 /* Main.storyboard */; };
 		F962E45E1E86EC0E00F73AF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F962E45D1E86EC0E00F73AF0 /* Assets.xcassets */; };
 		F962E4611E86EC0E00F73AF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F962E45F1E86EC0E00F73AF0 /* LaunchScreen.storyboard */; };
@@ -25,7 +25,7 @@
 		F92B2F011E874BC800D38038 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F962E4531E86EC0E00F73AF0 /* Pick Up Sports.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pick Up Sports.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F962E4561E86EC0E00F73AF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F962E4581E86EC0E00F73AF0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F962E4581E86EC0E00F73AF0 /* SignUpAndLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAndLoginViewController.swift; sourceTree = "<group>"; };
 		F962E45B1E86EC0E00F73AF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F962E45D1E86EC0E00F73AF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F962E4601E86EC0E00F73AF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 			children = (
 				F92B2F001E871EF300D38038 /* Pick Up Sports.entitlements */,
 				F962E4561E86EC0E00F73AF0 /* AppDelegate.swift */,
-				F962E4581E86EC0E00F73AF0 /* ViewController.swift */,
+				F962E4581E86EC0E00F73AF0 /* SignUpAndLoginViewController.swift */,
 				F962E45A1E86EC0E00F73AF0 /* Main.storyboard */,
 				F9D7CB1F1E88DE6F00868CD4 /* UserHomeViewController.swift */,
 				F962E45D1E86EC0E00F73AF0 /* Assets.xcassets */,
@@ -227,7 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9D7CB201E88DE6F00868CD4 /* UserHomeViewController.swift in Sources */,
-				F962E4591E86EC0E00F73AF0 /* ViewController.swift in Sources */,
+				F962E4591E86EC0E00F73AF0 /* SignUpAndLoginViewController.swift in Sources */,
 				F962E4571E86EC0E00F73AF0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

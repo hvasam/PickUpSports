@@ -15,8 +15,6 @@
 // errorCodeRequiresRecentLogin = 17014 - Indicates the user has attemped to change email or password more than 5 minutes after signing in.
 // errorCodeWeakPassword = 17026 - Indicates an attempt to set a password that is considered too weak.
 
-
-
 // Have to come up with a way to deal with the following:
 // Subset of errors that are COMMON to all Firebase apis:
 // errorCodeNetworkError = 17020 - Indicates a network error occurred (such as a timeout, interrupted connection, or unreachable host). These types of errors are often recoverable with a retry. The @c NSUnderlyingError field in the NSError.userInfo dictionary will contain the error encountered.
@@ -41,7 +39,7 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController {
+class SignUpAndLoginViewController: UIViewController {
 
     //MARK: Properties
     private var userMode = 0 // 0 for sign up, 1 for login
@@ -222,7 +220,7 @@ class ViewController: UIViewController {
     */
     
     // Coincidentally, the minimum character limit (of 6) happens to be the same restriction that Firebase uses by default
-    // Uncomment the following method if addition requirements are needed
+    // Uncomment the following method and add additional requirements if needed
     /*
     func meetsPasswordComplexityRequirements(password: String) -> Bool {
         guard password.characters.count >= 6 else { return false }
