@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C8A42C91018B0F68BFD7B0BC /* Pods_Pick_Up_Sports.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0391885BC5FBFC3E739A4FE /* Pods_Pick_Up_Sports.framework */; };
+		F92A99261E8D9D31007DE0C9 /* ProblemDocumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92A99251E8D9D31007DE0C9 /* ProblemDocumentation.swift */; };
 		F92B2F021E874BC800D38038 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F92B2F011E874BC800D38038 /* GoogleService-Info.plist */; };
 		F962E4571E86EC0E00F73AF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962E4561E86EC0E00F73AF0 /* AppDelegate.swift */; };
 		F962E4591E86EC0E00F73AF0 /* SignUpAndLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962E4581E86EC0E00F73AF0 /* SignUpAndLoginViewController.swift */; };
@@ -21,6 +22,7 @@
 		5984623D7F6FBDEACE24BA03 /* Pods-Pick Up Sports.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pick Up Sports.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pick Up Sports/Pods-Pick Up Sports.debug.xcconfig"; sourceTree = "<group>"; };
 		9A55223340189166B6E6620D /* Pods-Pick Up Sports.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pick Up Sports.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pick Up Sports/Pods-Pick Up Sports.release.xcconfig"; sourceTree = "<group>"; };
 		A0391885BC5FBFC3E739A4FE /* Pods_Pick_Up_Sports.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pick_Up_Sports.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F92A99251E8D9D31007DE0C9 /* ProblemDocumentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProblemDocumentation.swift; sourceTree = "<group>"; };
 		F92B2F001E871EF300D38038 /* Pick Up Sports.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pick Up Sports.entitlements"; sourceTree = "<group>"; };
 		F92B2F011E874BC800D38038 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F962E4531E86EC0E00F73AF0 /* Pick Up Sports.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pick Up Sports.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +88,7 @@
 				F92B2F001E871EF300D38038 /* Pick Up Sports.entitlements */,
 				F962E4561E86EC0E00F73AF0 /* AppDelegate.swift */,
 				F962E4581E86EC0E00F73AF0 /* SignUpAndLoginViewController.swift */,
+				F92A99251E8D9D31007DE0C9 /* ProblemDocumentation.swift */,
 				F962E45A1E86EC0E00F73AF0 /* Main.storyboard */,
 				F9D7CB1F1E88DE6F00868CD4 /* UserHomeViewController.swift */,
 				F962E45D1E86EC0E00F73AF0 /* Assets.xcassets */,
@@ -226,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F92A99261E8D9D31007DE0C9 /* ProblemDocumentation.swift in Sources */,
 				F9D7CB201E88DE6F00868CD4 /* UserHomeViewController.swift in Sources */,
 				F962E4591E86EC0E00F73AF0 /* SignUpAndLoginViewController.swift in Sources */,
 				F962E4571E86EC0E00F73AF0 /* AppDelegate.swift in Sources */,

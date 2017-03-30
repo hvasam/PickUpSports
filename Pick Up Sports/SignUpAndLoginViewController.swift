@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SignUpAndLoginViewController.swift
 //  Pick Up Sports
 //
 //  Created by Harshavardhan Vasam on 2017-03-25.
@@ -47,6 +47,12 @@ class SignUpAndLoginViewController: UIViewController {
     private let signUpModeName = "Sign Up"
     private let switchToLoginModeString = "Don't have an account? Sign up"
     private let switchToSignUpModeString = "Already have an account? Login"
+    private var databaseReference: FIRDatabaseReference? = nil
+    private var databaseListenerHandler: UInt = 0
+    
+    // For testing
+    private var numberForChange = 0
+    private var changeCount = 0
     
     
     //MARK: Outlets
@@ -64,13 +70,66 @@ class SignUpAndLoginViewController: UIViewController {
     
     //MARK: Actions
     @IBAction func signUpOrLogin(_ sender: UIButton) {
+        // Ensure that the required info has been provided
+        if anyEmptyFieldsInMode(userMode) {
+            alertForError("Insufficient Information", withMessage: "Make sure that you have provided the required information to continue.")
+            return
+        }
+        
+ 
         if userMode == 0 {
             // Create account in firebase
             // check the username availability and validity
-            // check if email address is already tied to an account and validity?
+            // check if email address is already tied to an account and validity
             // check the password complexity requirement
             
-            FIRAuth.auth()?.createUser(withEmail: email.text!, password: password.text!) { [unowned self] (user: FIRUser?, error: Error?) -> Void in
+            
+            // Usernames can only contain alphabetical letters (upper and lower case) and numbers
+            guard usernameIsValid(name: username.text!) else {
+                alertForError("Invalid Username", withMessage: "Must contain only letters and numbers.")
+                return
+            }
+            
+            // Anon sign in
+            
+            FIRAuth.auth()?.signInAnonymously { [unowned self] (user, error) in
+                print("The user id is: \(user?.uid)")
+                // Concurrent case: two new users are registering with the same username
+                
+                self.databaseReference!.child("users").child(self.username.text!).observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
+                    print("The snapshot value is \(snapshot.value)")
+                    print("The current user before signOut is \(FIRAuth.auth()?.currentUser)")
+                    print("The value of numberForChange is \(self.numberForChange)")
+                    self.numberForChange = 350
+                    self.changeCount += 1
+                    try? FIRAuth.auth()?.signOut()
+                    print("The value of numberForChange is \(self.numberForChange)")
+                    print("The current user after signOut is \(FIRAuth.auth()?.currentUser)")
+                })
+            }
+            
+        
+            
+            // must query database to ensure that username hasn't been taken
+            
+            // create a serial dispatch queue to handle user sign-up/login
+            // let signUpQueue = DispatchQueue(label: "signUpQueue", qos: DispatchQoS.userInitiated)
+        
+            /*
+            databaseReference?.child("users").observeSingleEvent(of: .value, with: {
+                [unowned self] (snapshot) in
+                    print("called")
+                    if snapshot.value != nil {
+                        print("The value of snapshot is: \(snapshot.value)")
+                        self.alertForError("Invalid Username", withMessage: "Username has already been taken.")
+                        return
+                    }
+                    print("The value of snapshot is: \(snapshot.value)")
+                }
+            )
+            */
+            
+            FIRAuth.auth()?.createUser(withEmail: self.email.text!, password: self.password.text!) { [unowned self] (user: FIRUser?, error: Error?) -> Void in
                 if let error = error {
                     self.clearAllFields()
                     // Error in creating user in Firebase
@@ -81,7 +140,7 @@ class SignUpAndLoginViewController: UIViewController {
                     
                     switch error {
                     case .errorCodeInvalidEmail:
-                        self.alertForError("Invalid Email", withMessage: "Please use a different email.")
+                        self.alertForError("Invalid Email", withMessage: "Please use a valid email.")
                     case .errorCodeEmailAlreadyInUse:
                         self.alertForError("Email Already In Use", withMessage: "Please register with a different email.")
                     case .errorCodeNetworkError:
@@ -120,9 +179,14 @@ class SignUpAndLoginViewController: UIViewController {
                     }
                 }
                 self.alertForError("Email Verification Sent", withMessage: "Please verify your email address.")
+                
+                // Create user in database
+                print("Before creating user in database")
+                self.databaseReference!.child("users").child(self.username.text!).setValue(["email": self.email.text!])
+                print("After creating user in database")
                 self.clearAllFields()
             }
-            
+    
         }
         else {
             // Validate credentials in firebase
@@ -186,6 +250,7 @@ class SignUpAndLoginViewController: UIViewController {
     //MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        databaseReference = FIRDatabase.database().reference()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -196,6 +261,18 @@ class SignUpAndLoginViewController: UIViewController {
 
     
     //MARK: Helper Methods
+    
+    func anyEmptyFieldsInMode(_ mode: Int) -> Bool {
+        guard let email = email.text else { return true }
+        guard let password = password.text else { return true }
+        if userMode == 0 {
+            guard let username = username.text else { return true }
+            return username == "" || email == "" || password == ""
+        }
+        else {
+            return email == "" || password == ""
+        }
+    }
     
     func clearAllFields() {
         username.text = ""
@@ -212,12 +289,17 @@ class SignUpAndLoginViewController: UIViewController {
     
     //MARK: Helper Methods: Account sign up requirements/validation
     
-    /*
-    func usernameIsAvailable(name: String) -> Bool {
-        
-        // check availability
+    
+    func usernameIsValid(name: String) -> Bool {
+        // check to see if name only contains letters (case insensitive) and numbers
+        let lowercaseName = name.lowercased()
+        let alphaSet = "qwertyuiopasdfghjklzxcvbnm"
+        let numSet = "123456789"
+        for character in lowercaseName.characters {
+            guard alphaSet.contains(String(character)) || numSet.contains(String(character)) else { return false }
+        }
+        return true
     }
-    */
     
     // Coincidentally, the minimum character limit (of 6) happens to be the same restriction that Firebase uses by default
     // Uncomment the following method and add additional requirements if needed
