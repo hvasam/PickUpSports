@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -91,15 +92,24 @@
                                     <constraint firstItem="bvC-DG-gSf" firstAttribute="width" secondItem="Ncs-Ki-kqY" secondAttribute="width" id="mrZ-PH-QMw"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WhL-lo-WNv">
+                                <rect key="frame" x="16" y="20" width="81" height="30"/>
+                                <state key="normal" title="Delete User"/>
+                                <connections>
+                                    <action selector="deleteUser:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Lw-V1-YsY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="IrD-Vu-Q3U" secondAttribute="trailing" id="0ea-dz-3UA"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="IrD-Vu-Q3U" secondAttribute="bottom" id="9sB-Gb-V5O"/>
                             <constraint firstItem="yMX-CR-kEk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="I3B-ca-wgj"/>
+                            <constraint firstItem="WhL-lo-WNv" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="I6Y-fP-hGp"/>
                             <constraint firstItem="yMX-CR-kEk" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="RlH-C7-NJJ"/>
                             <constraint firstItem="IrD-Vu-Q3U" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="eYb-Rz-eWS"/>
                             <constraint firstItem="IrD-Vu-Q3U" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="q8h-CV-jdn"/>
+                            <constraint firstItem="WhL-lo-WNv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="uPM-tN-bdm"/>
                         </constraints>
                     </view>
                     <connections>
