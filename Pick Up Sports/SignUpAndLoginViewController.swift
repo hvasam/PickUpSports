@@ -18,20 +18,6 @@ class SignUpAndLoginViewController: UIViewController {
     private let switchToLoginModeString = "Don't have an account? Sign up"
     private let switchToSignUpModeString = "Already have an account? Login"
     private var firstTimeSetup = true
-    private var databaseRef: FIRDatabaseReference? = nil
-    private var databaseReference: FIRDatabaseReference? {
-        get {
-            return databaseRef
-        }
-        set(newValue) {
-            if firstTimeSetup {
-                firstTimeSetup = false
-            }
-            if databaseRef != newValue {
-                databaseRef = newValue
-            }
-        }
-    }
     private var usersDatabaseReference: FIRDatabaseReference? = nil
     
     //MARK: Outlets
@@ -98,7 +84,6 @@ class SignUpAndLoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         FIRDatabase.database().persistenceEnabled = false
-        databaseReference = FIRDatabase.database().reference()
     }
 
     override func didReceiveMemoryWarning() {
@@ -108,15 +93,15 @@ class SignUpAndLoginViewController: UIViewController {
     
     // Begins the process of signing up new users
     func signUp() {
-        // Anonymous sign in required to access users database for email/username info, and authentication is required.
+        // Anonymous sign-in required to access users database for email/username info.
         anonymousSignIn()
     }
     
-    // Anonymous sign in required to access users database for email/username info, and authentication is required.
+    // Anonymous sign-in required to access users database for email/username info.
     func anonymousSignIn() {
         FIRAuth.auth()?.signInAnonymously { [unowned self] (user, error) in
             // Keep the users node synchronized by creating a database ref to it
-            self.usersDatabaseReference = self.databaseReference!.child("users")
+            self.usersDatabaseReference = FIRDatabase.database().reference().child("users")
             
             // what does it mean to keep synced? Sychronized with offlines writes? Or, synchronized with remote database changes? Or, both?
             // Offline writes should NOT be allowed at any point in the app
@@ -228,7 +213,8 @@ class SignUpAndLoginViewController: UIViewController {
                 // failure scenarios?:
                 
                 guard let error = FIRAuthErrorCode(rawValue: error._code) else {
-                    fatalError("Error in creating FIRAuthErrorCode during sign-in.")
+                    self.alertForError("Unknown Error", withMessage: "Try again.")
+                    return
                 }
                 switch error {
                 case .errorCodeInvalidEmail:
@@ -308,4 +294,3 @@ class SignUpAndLoginViewController: UIViewController {
     */
 
 }
-
