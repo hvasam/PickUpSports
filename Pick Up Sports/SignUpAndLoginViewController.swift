@@ -32,7 +32,7 @@ class SignUpAndLoginViewController: UIViewController {
             }
         }
     }
-    
+    private var usersDatabaseReference: FIRDatabaseReference? = nil
     
     //MARK: Outlets
     @IBOutlet weak var userInfoContainerView: UIView!
@@ -45,158 +45,30 @@ class SignUpAndLoginViewController: UIViewController {
     //MARK: Constraint Outlet
     @IBOutlet weak var usernameTopConstraint: NSLayoutConstraint!
     
-    // Only two possible modes: sign up, or login
-    
     //MARK: Actions
-    
-    
+    // Only two possible modes: sign up, or login
     @IBAction func signUpOrLogin(_ sender: UIButton) {
         // Ensure that the required info has been provided
         if anyEmptyFieldsInMode(userMode) {
             alertForError("Insufficient Information", withMessage: "Make sure that you have provided the required information to continue.")
             return
         }
-        
-        // Unfortunate series of async methods nested together
  
         if userMode == 0 {
-            // Create account in firebase
-            // check the username availability and validity
-            // check if email address is already tied to an account and validity
-            // check the password complexity requirement
+            // User creation process
             
-            
-            // Usernames can only contain alphabetical letters (upper and lower case) and numbers
+            // Strictly ensures usernames only contain alphabetical characters (upper and lower case) and numbers
             guard usernameIsValid(name: username.text!) else {
                 alertForError("Invalid Username", withMessage: "Must contain only letters and numbers.")
                 return
             }
             
-            // Anonymous user creation and sign in to access the database
-            FIRAuth.auth()?.signInAnonymously { [unowned self] (user, error) in
-                
-                // Keep the users node synchronized by creating a database ref to it
-                let usersDatabaseReference = self.databaseReference!.child("users")
-                
-                // what does it mean to keep synced? Sychronized with offlines writes? Or, synchronized with remote database changes? Or, both? 
-                // Offline writes should NOT be allowed at any point in the app
-                usersDatabaseReference.keepSynced(false)
-                
-                // query the database to see if the username is available
-                usersDatabaseReference.child(self.username.text!).observeSingleEvent(of: .value, with: { (snapshot) in
-                    if snapshot.exists() { // snapshot.exists() returns true when snapshot value contains a non-null value
-                        self.alertForError("Invalid Username", withMessage: "Username has already been taken.")
-                    }
-        
-                    // Delete anonymous user after use
-                    FIRAuth.auth()?.currentUser?.delete(completion: { (error) in
-                        if error != nil {
-                            // anon user could not be deleted
-                            // the uid should be stored and sent to the app database for clean up when network connectivity resumes?
-                        }
-                     
-                        // ensures snapshot value must be null
-                        guard !snapshot.exists() else { return }
-                        
-                        // Create new user
-                        FIRAuth.auth()?.createUser(withEmail: self.email.text!, password: self.password.text!) { [unowned self] (user: FIRUser?, error: Error?) -> Void in
-                            if let error = error {
-                                self.clearAllFields()
-                                // Error in creating user in Firebase
-                                let userInfo = error.localizedDescription
-                                
-                                // Try to create a valid error
-                                guard let error = FIRAuthErrorCode(rawValue: error._code) else {
-                                    self.alertForError("Unknown Error", withMessage: "Try again.")
-                                    return
-                                }
-                                
-                                switch error {
-                                case .errorCodeInvalidEmail:
-                                    self.alertForError("Invalid Email", withMessage: "Please use a valid email.")
-                                case .errorCodeEmailAlreadyInUse:
-                                    self.alertForError("Email Already In Use", withMessage: "Please register with a different email.")
-                                case .errorCodeNetworkError:
-                                    self.alertForError("Network Error", withMessage: "Check your connection.")
-                                case .errorCodeWeakPassword:
-                                    self.alertForError("Weak Password", withMessage: "\(userInfo)")
-                                default:
-                                    self.alertForError("Unknown Error", withMessage: "Please try again.")
-                                }
-                                return
-                            }
-                            
-                            // Set displayname of the user in Auth/Users
-                            guard let user = user else { return }
-                            let nameSetupRequest = user.profileChangeRequest()
-                            nameSetupRequest.displayName = self.username.text!
-                            nameSetupRequest.commitChanges { (error) in
-                                if error != nil {
-                                    // has no implications within the app currently
-                                }
-                            }
-                            
-                            // Create user in database
-                            let username = self.username.text!
-                            let email = self.email.text!
-                            usersDatabaseReference.child(username).setValue(["email": email])
-                            
-                            // Send email verification
-                            FIRAuth.auth()?.currentUser?.sendEmailVerification { [unowned self] (error) in
-                                if error != nil {
-                                    // Error in sending email verification
-                                    usersDatabaseReference.child(username).removeValue() // remove user from database
-                                    user.delete(completion: nil) // remove user from auth
-                                    self.alertForError("Email Verification Error", withMessage: "Please sign up again.")
-                                }
-                                else {
-                                    self.alertForError("Email Verification Sent", withMessage: "Please verify your email address.")
-                                }
-                            }
-                            
-                            // Clear all text fields
-                            self.clearAllFields()
-                        }
-                        
-                    })
-                    
-                })
-            }
+            // The following method begins the process of signing up a new user
+            signUp()
         }
         else {
-            // Validate credentials in firebase
-            FIRAuth.auth()?.signIn(withEmail: email.text!, password: password.text!) { [unowned self] (user, error) in
-                if let error = error {
-                    self.clearAllFields()
-                    // failure scenarios?:
-
-                    guard let error = FIRAuthErrorCode(rawValue: error._code) else {
-                        fatalError("Error in creating FIRAuthErrorCode during sign-in.")
-                    }
-                    switch error {
-                    case .errorCodeInvalidEmail:
-                        self.alertForError("Invalid Email Address", withMessage: "Please try again.")
-                    case .errorCodeWrongPassword:
-                        self.alertForError("Incorrect Password", withMessage: "Please try again.")
-                    case .errorCodeNetworkError:
-                        self.alertForError("Network Error", withMessage: "Check your connection.")
-                    default:
-                        self.alertForError("Unknown Error", withMessage: "Please try again.")
-                    }
-                    return
-                }
-                
-                // check if email has been verified
-                guard let user = user else { return }
-                guard user.isEmailVerified else {
-                    self.alertForError("Unverified Email Address", withMessage: "Complete the verification steps sent to your email.")
-                    return
-                }
-                
-                // success scenario:
-                self.clearAllFields()
-                self.performSegue(withIdentifier: "segue", sender: self)
-            }
+            // Sign in with given credentials
+            signIn()
         }
     }
     
@@ -233,10 +105,167 @@ class SignUpAndLoginViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // Begins the process of signing up new users
+    func signUp() {
+        // Anonymous sign in required to access users database for email/username info, and authentication is required.
+        anonymousSignIn()
+    }
+    
+    // Anonymous sign in required to access users database for email/username info, and authentication is required.
+    func anonymousSignIn() {
+        FIRAuth.auth()?.signInAnonymously { [unowned self] (user, error) in
+            // Keep the users node synchronized by creating a database ref to it
+            self.usersDatabaseReference = self.databaseReference!.child("users")
+            
+            // what does it mean to keep synced? Sychronized with offlines writes? Or, synchronized with remote database changes? Or, both?
+            // Offline writes should NOT be allowed at any point in the app
+            self.usersDatabaseReference?.keepSynced(false)
+            
+            // query the database to see if the username is available
+            self.checkUsernameAvailability()
+        }
+    }
+    
+    // Query the database to see if the username is available
+    func checkUsernameAvailability() {
+        self.usersDatabaseReference?.child(self.username.text!).observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.exists() { // snapshot.exists() returns true when snapshot value contains a non-null value
+                self.alertForError("Invalid Username", withMessage: "Username has already been taken.")
+                self.clearAllFields()
+            }
+            
+            // Delete anonymous user after use
+            self.deleteUser(snapshot: snapshot)
+        })
+    }
+    
+    // Delete anonymous user after use
+    func deleteUser(snapshot: FIRDataSnapshot) {
+        FIRAuth.auth()?.currentUser?.delete(completion: { (error) in
+            if error != nil {
+                // anon user could not be deleted
+                // the uid should be stored and sent to the app database for clean up when network connectivity resumes?
+            }
+            
+            // ensures snapshot value must be null
+            guard !snapshot.exists() else { return }
+            
+            // Create new user in Firebase
+            self.createUser()
+        })
+    }
+    
+    // Create new user in Firebase
+    func createUser() {
+        FIRAuth.auth()?.createUser(withEmail: self.email.text!, password: self.password.text!) { [unowned self] (user: FIRUser?, error: Error?) -> Void in
+            if let error = error {
+                self.clearAllFields()
+                // Error in creating user in Firebase
+                let userInfo = error.localizedDescription
+                
+                // Try to create a valid error
+                guard let error = FIRAuthErrorCode(rawValue: error._code) else {
+                    self.alertForError("Unknown Error", withMessage: "Try again.")
+                    return
+                }
+                
+                switch error {
+                case .errorCodeInvalidEmail:
+                    self.alertForError("Invalid Email", withMessage: "Please use a valid email.")
+                case .errorCodeEmailAlreadyInUse:
+                    self.alertForError("Email Already In Use", withMessage: "Please register with a different email.")
+                case .errorCodeNetworkError:
+                    self.alertForError("Network Error", withMessage: "Check your connection.")
+                case .errorCodeWeakPassword:
+                    self.alertForError("Weak Password", withMessage: "\(userInfo)")
+                default:
+                    self.alertForError("Unknown Error", withMessage: "Please try again.")
+                }
+                return
+            }
+            
+            // Set displayname of the user in Auth/Users
+            guard let user = user else { return }
+            let nameSetupRequest = user.profileChangeRequest()
+            nameSetupRequest.displayName = self.username.text!
+            nameSetupRequest.commitChanges { (error) in
+                if error != nil {
+                    // has no implications within the app currently
+                }
+            }
+            
+            // Create user in database
+            self.usersDatabaseReference?.child(self.username.text!).setValue(["email": self.email.text!])
+            
+            // Send email verification
+            self.sendEmailVerification()
+            
+            // Clear all text fields
+            self.clearAllFields()
+        }
+    }
+    
+    // Send email verification
+    func sendEmailVerification() {
+        FIRAuth.auth()?.currentUser?.sendEmailVerification { [unowned self] (error) in
+            if error != nil {
+                // Error in sending email verification
+                self.alertForError("Contact Support", withMessage: "Verification email was not sent.")
+            }
+            else {
+                self.alertForError("Email Verification Sent", withMessage: "Please verify your email address.")
+            }
+        }
+    }
+    
+    // Sign in existing user with given credentials
+    func signIn() {
+        // Validate credentials in firebase
+        FIRAuth.auth()?.signIn(withEmail: email.text!, password: password.text!) { [unowned self] (user, error) in
+            if let error = error {
+                self.clearAllFields()
+                // failure scenarios?:
+                
+                guard let error = FIRAuthErrorCode(rawValue: error._code) else {
+                    fatalError("Error in creating FIRAuthErrorCode during sign-in.")
+                }
+                switch error {
+                case .errorCodeInvalidEmail:
+                    self.alertForError("Invalid Email Address", withMessage: "Please try again.")
+                case .errorCodeWrongPassword:
+                    self.alertForError("Incorrect Password", withMessage: "Please try again.")
+                case .errorCodeNetworkError:
+                    self.alertForError("Network Error", withMessage: "Check your connection.")
+                default:
+                    self.alertForError("Unknown Error", withMessage: "Please try again.")
+                }
+                return
+            }
+            
+            // check if email has been verified
+            guard let user = user else { return }
+            guard user.isEmailVerified else {
+                self.alertForError("Unverified Email Address", withMessage: "Complete the verification steps sent to your email.")
+                return
+            }
+            
+            // success scenario:
+            self.clearAllFields()
+            self.performSegue(withIdentifier: "segue", sender: self)
+        }
+    }
 
+    // Alerts builder method
+    func alertForError(_ error: String, withMessage message: String) {
+        let alert = UIAlertController(title: error, message: message, preferredStyle: .alert)
+        let acceptAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(acceptAction)
+        present(alert, animated: true, completion: nil)
+    }
     
     //MARK: Helper Methods
-    
+    // Checks to see if any of the relevant (sign-up vs sign-in) fields are empty
     func anyEmptyFieldsInMode(_ mode: Int) -> Bool {
         guard let email = email.text else { return true }
         guard let password = password.text else { return true }
@@ -249,22 +278,14 @@ class SignUpAndLoginViewController: UIViewController {
         }
     }
     
+    // Clears all user-info text fields
     func clearAllFields() {
         username.text = ""
         email.text = ""
         password.text = ""
     }
     
-    func alertForError(_ error: String, withMessage message: String) {
-        let alert = UIAlertController(title: error, message: message, preferredStyle: .alert)
-        let acceptAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alert.addAction(acceptAction)
-        present(alert, animated: true, completion: nil)
-    }
-    
     //MARK: Helper Methods: Account sign up requirements/validation
-    
-    
     func usernameIsValid(name: String) -> Bool {
         // check to see if name only contains letters (case insensitive) and numbers
         let lowercaseName = name.lowercased()
