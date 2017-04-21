@@ -34,10 +34,7 @@ struct Game {
     var location: String // valid address
     var startTime: String // YYYYMMDDHHMM // MM can be one of 00, 15, 30, 45
     var endTime: String // Max 12 hours past startTime
-    var minParticipantsRequired: Int // Minimum number of people required for game - or None
-    var maxParticipants: Int // Max number of people required for game - or None
-    var pricePerPerson: Double // if applicable
-    var skillLevel: String // skill level of people desired for game
+
     var gameSuspended: Bool // if game suspended by admin - potentially in doubt
     var users: [String] // users who are coming to game
     var usersGuestNumber: [String: Int] // the number of additional people each user is beinging
@@ -46,3 +43,11 @@ struct Game {
 
 
 // you also have to think about timezones
+
+// Other features you might need/want
+/*
+ var minParticipantsRequired: Int // Minimum number of people required for game - or None
+ var maxParticipants: Int // Max number of people required for game - or None
+ var pricePerPerson: Double // if applicable
+ var skillLevel: String // skill level of people desired for game
+*/

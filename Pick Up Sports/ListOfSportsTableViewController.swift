@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Dispatch
 
 class ListOfSportsTableViewController: UITableViewController {
 
@@ -23,22 +24,10 @@ class ListOfSportsTableViewController: UITableViewController {
     
     //MARK: Properties
     private weak var previouslySelectedCell: UITableViewCell?
-    // Use if rootViewController is not != self
-    //weak var listOfSportsTableViewControllerDelegate: ListOfSportsTableViewControllerDelegate?
     let numberOfSections = 1
     let numberOfRows = 9
     
     //MARK: Methods
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Use if rootViewController is not != self
-        // Set previouslySelectedCell if delegate was previously set
-        // setPreviouslySelectedCellTo(sport: listOfSportsTableViewControllerDelegate!.selectedSport)
-    }
-    
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return numberOfSections
@@ -66,36 +55,12 @@ class ListOfSportsTableViewController: UITableViewController {
         newlySelectedCell.accessoryType = .checkmark
         previouslySelectedCell = newlySelectedCell
         
-        // save the change to delegate variable, selectedSport
-        // listOfSportsTableViewControllerDelegate?.selectedSport = newlySelectedCell.textLabel!.text!
-    }
-    
-    
-    // Use if rootViewController is not != self
-    /*
-    // Use this function to set the previouslySelectedCell when being segued to IF
-    // a sport was previously set on the delegate
-    func setPreviouslySelectedCellTo(sport: String) {
-        switch sport {
-        case "Badminton": previouslySelectedCell = badmintonCell
-        case "Basketball": previouslySelectedCell = basketballCell
-        case "Football": previouslySelectedCell = footballCell
-        case "Rugby": previouslySelectedCell = rugbyCell
-        case "Soccer": previouslySelectedCell = soccerCell
-        case "Softball": previouslySelectedCell = softballCell
-        case "Tennis": previouslySelectedCell = tennisCell
-        case "Ultimate": previouslySelectedCell = ultimateCell
-        case "Volleyball": previouslySelectedCell = volleyballCell
-        default: break // previouslySelectedCell will not be set
+        // SAVE SELECTION TO MODEL
+        
+        // segue to ...
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) { [weak self] in
+            self?.performSegue(withIdentifier: "setLocation", sender: self)
         }
-        previouslySelectedCell?.accessoryType = .checkmark
+        
     }
-    */
 }
-
-// Use if rootViewController is not != self
-/*
-protocol ListOfSportsTableViewControllerDelegate: class {
-    var selectedSport: String { get set }
-}
-*/

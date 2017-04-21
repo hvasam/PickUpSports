@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C8A42C91018B0F68BFD7B0BC /* Pods_Pick_Up_Sports.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0391885BC5FBFC3E739A4FE /* Pods_Pick_Up_Sports.framework */; };
+		F927D8E31EA5879000B4D1D8 /* AdditionalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F927D8E21EA5879000B4D1D8 /* AdditionalInfoViewController.swift */; };
 		F92A99261E8D9D31007DE0C9 /* ProblemDocumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92A99251E8D9D31007DE0C9 /* ProblemDocumentation.swift */; };
 		F92B2F021E874BC800D38038 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F92B2F011E874BC800D38038 /* GoogleService-Info.plist */; };
 		F93C32DA1E96B24C004B72C4 /* OptionsButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93C32D91E96B24C004B72C4 /* OptionsButtonManager.swift */; };
@@ -18,13 +19,17 @@
 		F962E45C1E86EC0E00F73AF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F962E45A1E86EC0E00F73AF0 /* Main.storyboard */; };
 		F962E45E1E86EC0E00F73AF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F962E45D1E86EC0E00F73AF0 /* Assets.xcassets */; };
 		F962E4611E86EC0E00F73AF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F962E45F1E86EC0E00F73AF0 /* LaunchScreen.storyboard */; };
+		F96E4DF51EA28FC20002927A /* TimingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96E4DF41EA28FC20002927A /* TimingsViewController.swift */; };
 		F9F3FEAE1E9A2ADD00207266 /* ListOfSportsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F3FEAD1E9A2ADD00207266 /* ListOfSportsTableViewController.swift */; };
+		F9F3FEB01E9C60F300207266 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9F3FEAF1E9C60F300207266 /* MapKit.framework */; };
+		F9F3FEB21E9C9FE300207266 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F3FEB11E9C9FE300207266 /* LocationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5984623D7F6FBDEACE24BA03 /* Pods-Pick Up Sports.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pick Up Sports.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pick Up Sports/Pods-Pick Up Sports.debug.xcconfig"; sourceTree = "<group>"; };
 		9A55223340189166B6E6620D /* Pods-Pick Up Sports.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pick Up Sports.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pick Up Sports/Pods-Pick Up Sports.release.xcconfig"; sourceTree = "<group>"; };
 		A0391885BC5FBFC3E739A4FE /* Pods_Pick_Up_Sports.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pick_Up_Sports.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F927D8E21EA5879000B4D1D8 /* AdditionalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalInfoViewController.swift; sourceTree = "<group>"; };
 		F92A99251E8D9D31007DE0C9 /* ProblemDocumentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProblemDocumentation.swift; sourceTree = "<group>"; };
 		F92B2F001E871EF300D38038 /* Pick Up Sports.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pick Up Sports.entitlements"; sourceTree = "<group>"; };
 		F92B2F011E874BC800D38038 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -38,7 +43,10 @@
 		F962E45D1E86EC0E00F73AF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F962E4601E86EC0E00F73AF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F962E4621E86EC0E00F73AF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F96E4DF41EA28FC20002927A /* TimingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimingsViewController.swift; sourceTree = "<group>"; };
 		F9F3FEAD1E9A2ADD00207266 /* ListOfSportsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListOfSportsTableViewController.swift; sourceTree = "<group>"; };
+		F9F3FEAF1E9C60F300207266 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F9F3FEB11E9C9FE300207266 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9F3FEB01E9C60F300207266 /* MapKit.framework in Frameworks */,
 				C8A42C91018B0F68BFD7B0BC /* Pods_Pick_Up_Sports.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,6 +65,7 @@
 		6F342D4E8FFA45B3B1DCCA3A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F9F3FEAF1E9C60F300207266 /* MapKit.framework */,
 				A0391885BC5FBFC3E739A4FE /* Pods_Pick_Up_Sports.framework */,
 			);
 			name = Frameworks;
@@ -112,6 +122,9 @@
 			isa = PBXGroup;
 			children = (
 				F9F3FEAD1E9A2ADD00207266 /* ListOfSportsTableViewController.swift */,
+				F9F3FEB11E9C9FE300207266 /* LocationViewController.swift */,
+				F96E4DF41EA28FC20002927A /* TimingsViewController.swift */,
+				F927D8E21EA5879000B4D1D8 /* AdditionalInfoViewController.swift */,
 			);
 			name = "Create Game";
 			sourceTree = "<group>";
@@ -154,6 +167,9 @@
 						DevelopmentTeam = JL27KQB7LV;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -246,13 +262,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F96E4DF51EA28FC20002927A /* TimingsViewController.swift in Sources */,
 				F958F0A51E91CC270098E996 /* Game.swift in Sources */,
 				F92A99261E8D9D31007DE0C9 /* ProblemDocumentation.swift in Sources */,
+				F927D8E31EA5879000B4D1D8 /* AdditionalInfoViewController.swift in Sources */,
 				F9F3FEAE1E9A2ADD00207266 /* ListOfSportsTableViewController.swift in Sources */,
 				F93C32DA1E96B24C004B72C4 /* OptionsButtonManager.swift in Sources */,
 				F962E4591E86EC0E00F73AF0 /* SignUpAndLoginViewController.swift in Sources */,
 				F958F0A91E9574FB0098E996 /* UpcomingAndPastGamesViewController.swift in Sources */,
 				F962E4571E86EC0E00F73AF0 /* AppDelegate.swift in Sources */,
+				F9F3FEB21E9C9FE300207266 /* LocationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
