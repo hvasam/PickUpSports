@@ -14,7 +14,8 @@ class TimingsViewController: UIViewController {
         static let minimumTimeIntervalFromNow: TimeInterval = 840.001
         static let maximumTimeIntervalFromNow: TimeInterval = 1210040.001
         static var minimumDateFromNow: Date {
-            
+            // Returns date that is 15 minutes ahead of current Time (HH:MM:SS), ex: if current time is 13:30:44, returns 13:45:00
+            // Since the time intervals for the date picker are 5 minutes apart, round up to the nearest 5 min mark after adding the 15 minutes. Ex: current time is 03:22:32, returned time would be 03:40:00
             let currentDate = Date()
             let timeIntervalSince1970 = currentDate.timeIntervalSince1970
             let fiveMinutesInSeconds = 300.0
@@ -23,26 +24,6 @@ class TimingsViewController: UIViewController {
                 return Date(timeIntervalSince1970: timeIntervalSince1970 + 900.0)
             }
             return Date(timeIntervalSince1970: timeIntervalSince1970 + 1200.0)
-            
-            /*
-            let dateFormatter = ISO8601DateFormatter()
-            dateFormatter.formatOptions = .withInternetDateTime
-            let date = Date()
-            let stringOfCurrentTime = dateFormatter.string(from: date)
-            let minutesRangeInInternetDateTimeFormat = stringOfCurrentTime.index(stringOfCurrentTime.endIndex, offsetBy: -6)...stringOfCurrentTime.index(stringOfCurrentTime.endIndex, offsetBy: -5)
-            let minutes = Int(stringOfCurrentTime[minutesRangeInInternetDateTimeFormat])!
-            let remainderOfMinutes = minutes % 5
-            let minutesRoundedDownToNearest5 = minutes - remainderOfMinutes
-            if remainderOfMinutes == 0 {
-                return Date(timeIntervalSinceNow: 900.0)
-            }
-            var stringOfMinimumTime = stringOfCurrentTime
-            stringOfMinimumTime.replaceSubrange(minutesRangeInInternetDateTimeFormat, with: String(minutesRoundedDownToNearest5))
-            print(stringOfMinimumTime)
-            let calculatedMinimumDate = Date(timeInterval: 1200.0, since: dateFormatter.date(from: stringOfMinimumTime)!)
-            
-            return calculatedMinimumDate
-            */
         }
         static var maximumDateFromNow: Date {
             return Date(timeIntervalSinceNow: 1210000.0) // 1210000 seconds = 14 days
