@@ -15,7 +15,7 @@ class TimingsViewController: UIViewController {
         static let maximumTimeIntervalFromNow: TimeInterval = 1210040.001
         static var minimumDateFromNow: Date {
             // Returns date that is 15 minutes ahead of current Time (HH:MM:SS), ex: if current time is 13:30:44, returns 13:45:00
-            // Since the time intervals for the date picker are 5 minutes apart, round up to the nearest 5 min mark after adding the 15 minutes. Ex: current time is 03:22:32, returned time would be 03:40:00
+            // Since the time intervals for the date picker are 5 minutes apart, round up to the nearest 5 min mark after adding the 15 minutes. Ex: if current time is 03:22:32, return 03:40:00
             let currentDate = Date()
             let timeIntervalSince1970 = currentDate.timeIntervalSince1970
             let fiveMinutesInSeconds = 300.0
@@ -23,7 +23,7 @@ class TimingsViewController: UIViewController {
             if totalSecondsAfterPreviousFiveMinuteMark < 60.0 {
                 return Date(timeIntervalSince1970: timeIntervalSince1970 + 900.0)
             }
-            return Date(timeIntervalSince1970: timeIntervalSince1970 + 1200.0)
+            return Date(timeIntervalSince1970: timeIntervalSince1970 - totalSecondsAfterPreviousFiveMinuteMark + 1200.0)
         }
         static var maximumDateFromNow: Date {
             return Date(timeIntervalSinceNow: 1210000.0) // 1210000 seconds = 14 days
@@ -45,8 +45,6 @@ class TimingsViewController: UIViewController {
     @IBOutlet weak var startTimeDatePicker: UIDatePicker! {
         didSet {
             startTimeDatePicker.minuteInterval = 5
-            startTimeDatePicker.minimumDate = DateConstraints.minimumDateFromNow
-            startTimeDatePicker.maximumDate = DateConstraints.maximumDateFromNow
         }
     }
     @IBOutlet weak var endTimeDatePicker: UIDatePicker! {
@@ -56,53 +54,34 @@ class TimingsViewController: UIViewController {
         }
     }
     @IBOutlet weak var startTimeButton: UIButton!
-    @IBOutlet weak var setTimingsButton: UIButton! {
-        didSet {
-            setTimingsButton.isUserInteractionEnabled = false
-        }
-    }
+    @IBOutlet weak var setTimingsButton: UIButton!
     @IBOutlet weak var coverView: UIView!
-    
-
-    // have to make user choose start time that is at least 5 minutes ahead of current time
-    // the end time cannot be more than 12 hours ahead of start timed
     
     //MARK: Actions
     @IBAction func setStartTime(_ sender: UIButton) {
-        
-        print("0")
         
         guard let buttonLabelText = startTimeButton.titleLabel?.text else {
             return
         }
         
-        print("1")
-        
         if buttonLabelText == "Change Start Time" {
-            // discard any previously saved values
             coverEndTimeDatePicker()
             endTimeDatePicker.isUserInteractionEnabled = false
             startTimeDatePicker.isUserInteractionEnabled = true
             startTimeButton.setTitle("Set Start Time", for: .normal)
-            setDateConstraints()
+            setStartDateConstraints()
         }
-        
-        print("2")
         
         guard buttonLabelText == "Set Start Time" else {
             return
         }
         
-        print("3")
-        
         // check date validity
         guard startDateIsValid(date: startTimeDatePicker.date) else {
             // give user warning about startDate being invalid.
-            setDateConstraints() // update constraints
+            setStartDateConstraints() // update constraints
             return
         }
-        
-        print("4")
         
         // set date
         dateOfStartTime = startTimeDatePicker.date
@@ -116,9 +95,24 @@ class TimingsViewController: UIViewController {
         
         // change the text on the button (ex: "Change start time")
         startTimeButton.setTitle("Change Start Time", for: .normal)
+        
+        // set constraints for endDateTimePicker
+        setEndDateConstraints()
     }
     
     @IBAction func setTimings(_ sender: UIButton) {
+        let timeIntervalBetweenCurrentDateAndStartDate = dateOfStartTime.timeIntervalSince(Date())
+        guard timeIntervalBetweenCurrentDateAndStartDate > 840.001 else {
+            let alert = UIAlertController(title: "Start Date Invalid", message: "Time must be at least 15 minutes ahead of current Time.", preferredStyle: .alert)
+            let acceptAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(acceptAction)
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        // save end time
+        dateOfEndTime  = endTimeDatePicker.date
+        
         // SAVE (START AND END TIME) SELECTION TO MODEL
         
         // segue to additional info
@@ -128,29 +122,29 @@ class TimingsViewController: UIViewController {
     //MARK: Methods
     
     override func viewDidLoad() {
-         startTimeDatePicker.setDate(startTimeDatePicker.minimumDate!, animated: true)
+        setStartDateConstraints()
+        startTimeDatePicker.setDate(startTimeDatePicker.minimumDate!, animated: true)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        setDateConstraints()
-    }
-    
-    func setDateConstraints() {
+    func setStartDateConstraints() {
         startTimeDatePicker.minimumDate = DateConstraints.minimumDateFromNow
         startTimeDatePicker.maximumDate = DateConstraints.maximumDateFromNow
     }
     
+    func setEndDateConstraints() {
+        endTimeDatePicker.minimumDate = Date(timeInterval: 1800.0, since: dateOfStartTime) // minimum time of 30 min
+        endTimeDatePicker.maximumDate = Date(timeInterval: 43200.0, since: dateOfStartTime) // maximum time of 12 hours
+    }
+    
     func startDateIsValid(date: Date) -> Bool {
-        print("The startTimeDatePicker date is: \(startTimeDatePicker.date)")
-        print("The date is: \(Date())")
         let timeIntervalFromNowToChosenDate = startTimeDatePicker.date.timeIntervalSince(Date())
-        print(timeIntervalFromNowToChosenDate)
         if timeIntervalFromNowToChosenDate < DateConstraints.minimumTimeIntervalFromNow {
             return false
         }
         return true
     }
     
+    // Called when setting endTimeDatePicker
     func coverStartTimeDatePicker() {
         let localCoverView: UIView = coverView
         UIView.animate(withDuration: 0.3) {
@@ -161,6 +155,7 @@ class TimingsViewController: UIViewController {
         }
     }
     
+    // Called when setting startTimeDatePicker
     func coverEndTimeDatePicker() {
         let localCoverView: UIView = coverView
         UIView.animate(withDuration: 0.3) {
