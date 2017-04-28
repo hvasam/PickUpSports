@@ -41,13 +41,22 @@ class LocationViewController: UIViewController, UITextFieldDelegate, MKLocalSear
     var numberOfResults: Int {
         return searchResults.count
     }
+    weak var delegate: GameCreationDelegate?
+    var placemark: MKPlacemark?
     
     //MARK: Actions
     @IBAction func setLocation(_ sender: UIButton) {
         // SAVE SELECTION TO MODEL
+        delegate?.locationViewController = self
+        saveLocationToDelegate()
         
         // perform segue
-        performSegue(withIdentifier: "setTimings", sender: self)
+        if delegate?.timingsViewController != nil {
+            delegate?.pushTimingsViewControllerOnToNavigationStack()
+        }
+        else {
+            performSegue(withIdentifier: "setTimings", sender: sender)
+        }
     }
     
     
@@ -81,7 +90,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate, MKLocalSear
         autocompleteResultsTable.dataSource = self
         autocompleteResultsTable.delegate = self
     }
-    
     
     //MARK: UITextFieldDelegate methods
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -177,7 +185,7 @@ class LocationViewController: UIViewController, UITextFieldDelegate, MKLocalSear
         if let annotation = mapView.annotations.first {
             mapView.removeAnnotation(annotation)
         }
-        
+
         // set pin (MKAnnotationView object) to chosen address
         let searchRequest = MKLocalSearchRequest(completion: searchResults[indexPath.row])
         let search = MKLocalSearch(request: searchRequest)
@@ -189,15 +197,53 @@ class LocationViewController: UIViewController, UITextFieldDelegate, MKLocalSear
                 return
             }
             let firstMapItem = response.mapItems[0]
-            var region = self?.mapView.region
-            region?.center = (firstMapItem.placemark.location?.coordinate)!
-            region?.span.longitudeDelta = 0.015
-            region?.span.latitudeDelta = 0.015
-            self?.mapView.setRegion(region!, animated: true)
-            self?.mapView.addAnnotation(firstMapItem.placemark)
+            let placemark = firstMapItem.placemark
+            self?.setLocationOnMapViewGiven(placemark, animated: true)
             
             // show setLocationButton
             self?.setLocationButton.alpha = 1
         }
+    }
+    
+    
+    func setLocationOnMapViewGiven(_ placemark: MKPlacemark, animated: Bool) {
+        var region = mapView.region
+        region.center = (placemark.location?.coordinate)!
+        self.placemark = placemark
+        region.span.longitudeDelta = 0.015
+        region.span.latitudeDelta = 0.015
+        mapView.setRegion(region, animated: animated)
+        mapView.addAnnotation(placemark)
+    }
+    
+    func saveLocationToDelegate() {
+        guard let placemark = placemark else {
+            return
+        }
+        delegate?.address = constructAddressFrom(name: placemark.name,
+                                                 locality: placemark.locality,
+                                                 administrativeArea: placemark.administrativeArea,
+                                                 postalCode: placemark.postalCode)
+        delegate?.latitude = placemark.location!.coordinate.latitude
+        delegate?.longitude = placemark.location!.coordinate.longitude
+    }
+    
+    func constructAddressFrom(name: String?, locality: String?, administrativeArea: String?, postalCode: String?) -> String {
+        // subThoroughfare = street number
+        // thoroughFare = street name
+        // locality = city
+        // administrativeArea = province/state
+        
+        guard let name = name, let locality = locality, let administrativeArea = administrativeArea, let postalCode = postalCode else {
+            return ""
+        }
+        return name + ", " + locality + ", " + administrativeArea + " " + postalCode
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destinationVC = segue.destination as? TimingsViewController else {
+            return
+        }
+        destinationVC.delegate = delegate
     }
 }

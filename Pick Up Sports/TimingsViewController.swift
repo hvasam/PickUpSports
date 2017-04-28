@@ -40,6 +40,7 @@ class TimingsViewController: UIViewController {
     //MARK: Properties
     var dateOfStartTime = Date()
     var dateOfEndTime = Date()
+    weak var delegate: GameCreationDelegate?
     
     //MARK: Outlets
     @IBOutlet weak var startTimeDatePicker: UIDatePicker! {
@@ -86,7 +87,7 @@ class TimingsViewController: UIViewController {
         // set date
         dateOfStartTime = startTimeDatePicker.date
         
-        // and disable startTimeDatePicker
+        // cover and disable startTimeDatePicker
         coverStartTimeDatePicker()
         startTimeDatePicker.isUserInteractionEnabled = false
         
@@ -103,7 +104,7 @@ class TimingsViewController: UIViewController {
     @IBAction func setTimings(_ sender: UIButton) {
         let timeIntervalBetweenCurrentDateAndStartDate = dateOfStartTime.timeIntervalSince(Date())
         guard timeIntervalBetweenCurrentDateAndStartDate > 840.001 else {
-            let alert = UIAlertController(title: "Start Date Invalid", message: "Time must be at least 15 minutes ahead of current Time.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Start Date Invalid", message: "Start time must be at least 15 minutes ahead of current time.", preferredStyle: .alert)
             let acceptAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alert.addAction(acceptAction)
             present(alert, animated: true, completion: nil)
@@ -114,14 +115,23 @@ class TimingsViewController: UIViewController {
         dateOfEndTime  = endTimeDatePicker.date
         
         // SAVE (START AND END TIME) SELECTION TO MODEL
+        delegate?.startTime = dateOfStartTime
+        delegate?.endTime = dateOfEndTime
+        delegate?.timingsViewController = self
         
         // segue to additional info
-        performSegue(withIdentifier: "setAdditionalInfo", sender: self)
+        if delegate?.additionalInfoViewController != nil {
+            delegate?.pushAdditionalInfoViewControllerOnToNavigationStack()
+        }
+        else {
+            performSegue(withIdentifier: "setAdditionalInfo", sender: self)
+        }
     }
     
     //MARK: Methods
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         setStartDateConstraints()
         startTimeDatePicker.setDate(startTimeDatePicker.minimumDate!, animated: true)
     }
@@ -164,5 +174,12 @@ class TimingsViewController: UIViewController {
                                           width: localCoverView.frame.width,
                                           height: localCoverView.frame.height * CoverViewFrameOptions.heightRatioOfEndTimeCoverToStartTimeCover)
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destinationVC = segue.destination as? AdditionalInfoViewController else {
+            return
+        }
+        destinationVC.delegate = delegate
     }
 }

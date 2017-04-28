@@ -26,8 +26,18 @@ class ListOfSportsTableViewController: UITableViewController {
     private weak var previouslySelectedCell: UITableViewCell?
     let numberOfSections = 1
     let numberOfRows = 9
+    weak var delegate: GameCreationDelegate?
+    
+    //MARK: Actions
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
     
     //MARK: Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        delegate = navigationController as? GameCreationDelegate
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return numberOfSections
@@ -43,6 +53,12 @@ class ListOfSportsTableViewController: UITableViewController {
         
         // check to see if the selected cell already has a checkmark
         guard newlySelectedCell != previouslySelectedCell else {
+            if delegate?.locationViewController != nil {
+                delegate?.pushLocationViewControllerOnToNavigationStack()
+            }
+            else {
+                performSegue(withIdentifier: "setLocation", sender: self)
+            }
             return
         }
         
@@ -56,11 +72,24 @@ class ListOfSportsTableViewController: UITableViewController {
         previouslySelectedCell = newlySelectedCell
         
         // SAVE SELECTION TO MODEL
+        delegate?.sport = (newlySelectedCell.textLabel?.text)!
         
         // segue to ...
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(500)) { [weak self] in
-            self?.performSegue(withIdentifier: "setLocation", sender: self)
+            if self?.delegate?.locationViewController != nil {
+                self?.delegate?.pushLocationViewControllerOnToNavigationStack()
+            }
+            else {
+                self?.performSegue(withIdentifier: "setLocation", sender: self)
+            }
         }
-        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destinationVC = segue.destination as? LocationViewController else {
+            return
+        }
+        destinationVC.delegate = delegate
     }
 }
+

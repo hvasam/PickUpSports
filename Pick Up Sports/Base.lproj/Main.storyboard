@@ -435,6 +435,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Sport" id="CvV-Gf-Y6V">
                         <barButtonItem key="backBarButtonItem" title="Back" id="frq-mU-Lqy"/>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="RA0-dh-nbn">
+                            <connections>
+                                <action selector="cancel:" destination="coY-rE-esz" id="Cqg-7N-seF"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="badmintonCell" destination="HVH-4r-38N" id="4Oy-Nx-cHM"/>
@@ -758,6 +763,9 @@
                                                     <rect key="frame" x="8" y="343" width="261" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Post Game"/>
+                                                    <connections>
+                                                        <action selector="postGame:" destination="XbX-lB-lXM" eventType="touchUpInside" id="x5I-9R-vQP"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Additional Info (Optional)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Alq-B7-hTb">
                                                     <rect key="frame" x="8" y="79" width="261" height="21"/>
@@ -797,10 +805,10 @@
             </objects>
             <point key="canvasLocation" x="5040.579710144928" y="-316.304347826087"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Post Game Navigation Controller-->
         <scene sceneID="vmQ-9s-yh5">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iR1-in-Spm" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iR1-in-Spm" customClass="PostGameNavigationController" customModule="Pick_Up_Sports" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="TnT-Ed-Iib">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

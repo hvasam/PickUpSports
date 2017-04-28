@@ -237,7 +237,26 @@ class SignUpAndLoginViewController: UIViewController {
             }
             
             // success scenario:
+            // create user object for reference
+            guard let providerData = FIRAuth.auth()?.currentUser?.providerData,
+                  providerData.count > 0,
+                  let username = providerData[0].displayName,
+                  let email = providerData[0].email,
+                  let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
+            var totalNumberOfGamesPosted = 0
+            FIRDatabase.database().reference().child("users/\(username)/totalNumberOfGamesPosted").observeSingleEvent(of: .value, with: { (snapshot) in
+                if snapshot.exists() {
+                    totalNumberOfGamesPosted = snapshot.value as! Int
+                }
+            })
+            appDelegate.user = User(email: email, username: username, totalNumberOfGamesPosted: totalNumberOfGamesPosted)
+            
+            // reset login VC
             self.clearAllFields()
+            
+            // segue to successful sign-in VC
             self.performSegue(withIdentifier: "segue", sender: self)
         }
     }
@@ -282,7 +301,6 @@ class SignUpAndLoginViewController: UIViewController {
         }
         return true
     }
-    
     
     // Coincidentally, the minimum character limit (of 6) happens to be the same restriction that Firebase uses by default
     // Uncomment the following method and add additional requirements if needed

@@ -20,34 +20,20 @@ struct Sport {
     static let volleyball = "Volleyball"
 }
 
-struct SkillLevel {
-    static let any = "Any"
-    static let beginner = "Beginner"
-    static let intermediate = "Intermediate"
-    static let advanced = "Advanced"
-}
-
 struct Game {
+    let id: String // unique identifier of each game - the key to access data in Firebase (path: "games/gameDate/id") - this will act as the key
+    
+    // the remaining properties are children of the id key in Firebase
     let admin: String // username of user who created/posted the game
-    let id: String // unique identifier of each game
     let sport: String // type of sport
-    var location: String // valid address
-    var startTime: String // YYYYMMDDHHMM // MM can be one of 00, 15, 30, 45
-    var endTime: String // Max 12 hours past startTime
-
-    var gameSuspended: Bool // if game suspended by admin - potentially in doubt
+    var locationAddress: String // valid address
+    var locationLatitude: String
+    var locationLongitude: String
+    var startTime: String // YYYYMMDDHHMM
+    var endTime: String // YYYYMMDDHHMM
+    var maxParticipants: Int // Max number of people wanted at game
+    var additionalInfo: String // String containing additional information that the admin posted
     var users: [String] // users who are coming to game
     var usersGuestNumber: [String: Int] // the number of additional people each user is beinging
     var currentNumberOfParticipants: Int // number of users who are coming to the game + the number of people they're bringing
 }
-
-
-// you also have to think about timezones
-
-// Other features you might need/want
-/*
- var minParticipantsRequired: Int // Minimum number of people required for game - or None
- var maxParticipants: Int // Max number of people required for game - or None
- var pricePerPerson: Double // if applicable
- var skillLevel: String // skill level of people desired for game
-*/

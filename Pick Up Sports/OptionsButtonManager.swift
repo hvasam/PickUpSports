@@ -16,7 +16,6 @@ class OptionsButtonManager: UIView, UITableViewDelegate, UITableViewDataSource {
         static let numberOfRows = 3
     }
     
-    
     //MARK: Properties
     weak var owningViewController: UIViewController?
     let backgroundCoverView = UIView()
@@ -35,7 +34,6 @@ class OptionsButtonManager: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     //MARK: Methods
-    
     func setup() {
         guard let owningVC = owningViewController else {
             return
@@ -46,7 +44,7 @@ class OptionsButtonManager: UIView, UITableViewDelegate, UITableViewDataSource {
         backgroundCoverView.isOpaque = false
         backgroundCoverView.alpha = 0
         backgroundCoverView.backgroundColor = UIColor.black
-        backgroundCoverView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cancelOptionsSelection)))
+        backgroundCoverView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideOptions)))
         owningVC.view.addSubview(backgroundCoverView)
         
         // Setting up static tableview for options button
@@ -93,7 +91,8 @@ class OptionsButtonManager: UIView, UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    func cancelOptionsSelection() {
+    // Hide menu options when user selects an option, or cancels it by tapping outside options list
+    func hideOptions() {
         guard let owningVC = owningViewController else {
             return
         }
@@ -113,6 +112,9 @@ class OptionsButtonManager: UIView, UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             owningVC.performSegue(withIdentifier: "Post", sender: createGameCell!)
         }
+        
+        // Hide the options menu once option is chosen
+        hideOptions()
     }
     
     //MARK: UITableView datasource methods
@@ -132,8 +134,6 @@ class OptionsButtonManager: UIView, UITableViewDelegate, UITableViewDataSource {
             return optionsListCellTemplate
         }
     }
-    
-    
     
     deinit {
         // Remove strong refences to allow deinitialization
