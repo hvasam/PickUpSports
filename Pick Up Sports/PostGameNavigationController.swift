@@ -26,6 +26,7 @@ class PostGameNavigationController: UINavigationController, GameCreationDelegate
     var additionalInfoViewController: AdditionalInfoViewController?
     
     //MARK: Properties
+    var postGameDelegate: PostGameNavigationControllerDelegate?
     let usersDatabaseReference = FIRDatabase.database().reference().child("users")
     let gamesDatabaseReference = FIRDatabase.database().reference().child("games")
     let user = (UIApplication.shared.delegate as! AppDelegate).user!
@@ -54,29 +55,32 @@ class PostGameNavigationController: UINavigationController, GameCreationDelegate
     
     // Save to Firebase Database
     func postGame() {
-        guard let startTimeStringDescription = startTime?.description else {
-            return
-        }
-        
-        let yearRange = startTimeStringDescription.startIndex...startTimeStringDescription.index(startTimeStringDescription.startIndex, offsetBy: 3)
-        let monthRange = startTimeStringDescription.index(startTimeStringDescription.startIndex, offsetBy: 5)...startTimeStringDescription.index(startTimeStringDescription.startIndex, offsetBy: 6)
-        let dayRange = startTimeStringDescription.index(startTimeStringDescription.startIndex, offsetBy: 8)...startTimeStringDescription.index(startTimeStringDescription.startIndex, offsetBy: 9)
-        
-        let dateOfGame = startTimeStringDescription[yearRange] + startTimeStringDescription[monthRange] + startTimeStringDescription[dayRange]
-        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        dateFormatter.dateFormat = "yyyyMMdd"
+        let dateOfGame = dateFormatter.string(from: startTime!)
         let gameID = user.username + String(user.totalNumberOfGamesPosted + 1)
         let gameReference = gamesDatabaseReference.child("\(dateOfGame)/\(gameID)")
+        
+        // Change format to include hours and minutes before saving to Firebase
+        dateFormatter.dateFormat = "yyyyMMddHHmm"
         
         gameReference.child("admin").setValue(user.username)
         gameReference.child("sport").setValue(sport)
         gameReference.child("locationAddress").setValue(address!)
         gameReference.child("locationLatitude").setValue(latitude!)
         gameReference.child("locationLongitude").setValue(longitude!)
-        gameReference.child("startTime").setValue(startTime!.description)
-        gameReference.child("endTime").setValue(endTime!.description)
+        gameReference.child("startTime").setValue(dateFormatter.string(from: startTime!))
+        gameReference.child("endTime").setValue(dateFormatter.string(from: endTime!))
         gameReference.child("maxParticipants").setValue(maxParticipants!)
         gameReference.child("additionalInfo").setValue(additionalInfo ?? "")
         gameReference.child("users").setValue([user.username])
+        
+        // Create Game object with given info
+        let newGame = Game(id: gameID, admin: user.username, sport: sport, locationAddress: address!, locationLatitude: latitude!, locationLongitude: longitude!, startTime: dateFormatter.string(from: startTime!), endTime: dateFormatter.string(from: endTime!), maxParticipants: maxParticipants!, additionalInfo: additionalInfo ?? "", users: [user.username], usersGuestNumber: [String: Int](), currentNumberOfParticipants: 1)
+        
+        // Update upcomingGamesArray
+        postGameDelegate!.addGameToUpcomingGamesArray(newGame)
         
         // Notify user that new game has been posted
         user.postedNewGame()
@@ -84,7 +88,6 @@ class PostGameNavigationController: UINavigationController, GameCreationDelegate
         // Dismiss game creation VC stack
         dismiss(animated: true, completion: nil)
     }
-    
     
     deinit {
         listOfSportsTableViewController = nil
@@ -123,3 +126,6 @@ protocol GameCreationDelegate: class {
     func postGame()
 }
 
+protocol PostGameNavigationControllerDelegate: class {
+    func addGameToUpcomingGamesArray(_ newGame: Game) // gameDate parameter has to be in the following format: YYYYMMDDHHMM
+}

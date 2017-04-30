@@ -25,6 +25,7 @@
 		F9F3FEAE1E9A2ADD00207266 /* ListOfSportsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F3FEAD1E9A2ADD00207266 /* ListOfSportsTableViewController.swift */; };
 		F9F3FEB01E9C60F300207266 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9F3FEAF1E9C60F300207266 /* MapKit.framework */; };
 		F9F3FEB21E9C9FE300207266 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F3FEB11E9C9FE300207266 /* LocationViewController.swift */; };
+		F9F72C301EB4EA4E006E8407 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F72C2F1EB4EA4E006E8407 /* GameCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		F9F3FEAD1E9A2ADD00207266 /* ListOfSportsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListOfSportsTableViewController.swift; sourceTree = "<group>"; };
 		F9F3FEAF1E9C60F300207266 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F9F3FEB11E9C9FE300207266 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		F9F72C2F1EB4EA4E006E8407 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				F958F0A81E9574FB0098E996 /* UpcomingAndPastGamesViewController.swift */,
 				F9B70C581EB18CF700413AB1 /* User.swift */,
 				F962E45A1E86EC0E00F73AF0 /* Main.storyboard */,
+				F9F72C2F1EB4EA4E006E8407 /* GameCell.swift */,
 				F9F3FEAA1E9A2A4A00207266 /* Create Game */,
 				F962E45D1E86EC0E00F73AF0 /* Assets.xcassets */,
 				F962E45F1E86EC0E00F73AF0 /* LaunchScreen.storyboard */,
@@ -270,6 +273,7 @@
 			files = (
 				F96E4DF51EA28FC20002927A /* TimingsViewController.swift in Sources */,
 				F90892B51EAE92DD004D0742 /* PostGameNavigationController.swift in Sources */,
+				F9F72C301EB4EA4E006E8407 /* GameCell.swift in Sources */,
 				F958F0A51E91CC270098E996 /* Game.swift in Sources */,
 				F92A99261E8D9D31007DE0C9 /* ProblemDocumentation.swift in Sources */,
 				F927D8E31EA5879000B4D1D8 /* AdditionalInfoViewController.swift in Sources */,

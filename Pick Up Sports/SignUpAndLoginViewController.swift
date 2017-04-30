@@ -249,9 +249,9 @@ class SignUpAndLoginViewController: UIViewController {
             FIRDatabase.database().reference().child("users/\(username)/totalNumberOfGamesPosted").observeSingleEvent(of: .value, with: { (snapshot) in
                 if snapshot.exists() {
                     totalNumberOfGamesPosted = snapshot.value as! Int
+                    appDelegate.user = User(email: email, username: username, totalNumberOfGamesPosted: totalNumberOfGamesPosted)
                 }
             })
-            appDelegate.user = User(email: email, username: username, totalNumberOfGamesPosted: totalNumberOfGamesPosted)
             
             // reset login VC
             self.clearAllFields()
