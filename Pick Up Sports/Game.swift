@@ -38,6 +38,7 @@ struct Game {
     var currentNumberOfParticipants: Int // number of users who are coming to the game + the number of participants they've invited - DOES NOT INCLUDE THE ADMIN'S ADDITIONAL PARTICIPANTS
     
     
+    // Computed properties for upcoming games table view cells
     var startTimeInDisplayFormat: String {
         let hourRange = startTime.index(startTime.startIndex, offsetBy: 8)...startTime.index(startTime.startIndex, offsetBy: 9)
         let minuteRange = startTime.index(startTime.startIndex, offsetBy: 10)...startTime.index(startTime.startIndex, offsetBy: 11)
@@ -84,19 +85,8 @@ struct Game {
         fatalError("Execution should not reach this point. See abbreviated month string in Game.swift.")
     }
     
-    
     var dayOfStartTime: String {
         let dayRange = startTime.index(startTime.startIndex, offsetBy: 6)...startTime.index(startTime.startIndex, offsetBy: 7)
         return startTime[dayRange]
     }
-    
-    
-    // Display format is HH:MM + am/pm
-    //let time = startTime[startTime.index(startTime.endIndex, offsetBy: -4)...startTime.index(startTime.endIndex, offsetBy: -1)]
-    // To get this right, you need to get the HH and mm parts.
-    // If HH is 00, then return 12:mmam
-    // If the first H is zero, then return H:mmam)
-    // If HH >= 12, then return HH-12:mmpm
-    
-    // If there isn't a 0 in the first H, then check to see if HH >
 }
