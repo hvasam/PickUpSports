@@ -28,9 +28,9 @@ class UpcomingAndPastGamesViewController: UIViewController, PostGameNavigationCo
             pastGamesButton.layer.borderColor = UIColor.blue.cgColor
         }
     }
-    @IBOutlet weak var optionsButtonManager: OptionsButtonManager! {
+    @IBOutlet weak var optionsButton: OptionsButton! {
         didSet {
-            optionsButtonManager.owningViewController = self
+            optionsButton.owningViewController = self
         }
     }
     @IBOutlet weak var upcomingGamesTableView: UITableView! {
@@ -51,7 +51,7 @@ class UpcomingAndPastGamesViewController: UIViewController, PostGameNavigationCo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        optionsButtonManager.setup()
+        optionsButton.setup()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

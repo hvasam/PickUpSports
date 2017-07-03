@@ -1,6 +1,6 @@
 //
-//  OptionsButtonManager.swift
-//  
+//  OptionsButton.swift
+//
 //
 //  Created by Harshavardhan Vasam on 2017-04-06.
 //
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OptionsButtonManager: UIView, UITableViewDelegate, UITableViewDataSource {
+class OptionsButton: UIView, UITableViewDelegate, UITableViewDataSource {
     
     struct OptionsListTableViewProperties {
         static let heightRatioToSuperView = CGFloat(0.25)
@@ -25,19 +25,14 @@ class OptionsButtonManager: UIView, UITableViewDelegate, UITableViewDataSource {
     var findGamesCell: UITableViewCell?
     var userSettingsCell: UITableViewCell?
     
-    
-    //MARK: Outlets
-    @IBOutlet weak var optionsButton: UIView! {
-        didSet {
-            optionsButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(presentOptions)))
-        }
-    }
-    
     //MARK: Methods
     func setup() {
         guard let owningVC = owningViewController else {
             return
         }
+        
+        // Add guesture recognizers for tap event
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(presentOptions)))
         
         // Setting up background cover for when optionsButton is used
         backgroundCoverView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: owningVC.view.bounds.size)
@@ -64,7 +59,7 @@ class OptionsButtonManager: UIView, UITableViewDelegate, UITableViewDataSource {
         
         // createGameCell
         createGameCell = createOptionsListCell(withText: "Post a game")
-    
+        
         // findGamesCell
         findGamesCell = createOptionsListCell(withText: "Find games")
         
@@ -113,8 +108,10 @@ class OptionsButtonManager: UIView, UITableViewDelegate, UITableViewDataSource {
             owningVC.performSegue(withIdentifier: "Post", sender: createGameCell!)
         }
         
-        // Hide the options menu once option is chosen
+        // Hide the options menu once option is chosen and deselect row
         hideOptions()
+        tableView.deselectRow(at: indexPath, animated: true)
+
     }
     
     //MARK: UITableView datasource methods

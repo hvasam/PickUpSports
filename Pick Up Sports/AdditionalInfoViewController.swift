@@ -95,6 +95,11 @@ class AdditionalInfoViewController: UIViewController, UITextFieldDelegate, UITex
         return lengthOfStringAfterReplacement <= characterLimitForMaxParticipantsTextField && ( maxParticipants != nil || string == "" )
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     //MARK: UITextViewDelegate methods
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == placeholderTextForAdditionalInfoTextView {
@@ -111,6 +116,10 @@ class AdditionalInfoViewController: UIViewController, UITextFieldDelegate, UITex
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
         let lengthOfStringAfterReplacement = textView.text.characters.count - range.length + text.characters.count
         return lengthOfStringAfterReplacement <= characterLimitForAdditionalInfoTextView
     }

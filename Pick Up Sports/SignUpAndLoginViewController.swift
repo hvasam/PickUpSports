@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class SignUpAndLoginViewController: UIViewController {
+class SignUpAndLoginViewController: UIViewController, UITextFieldDelegate {
 
     //MARK: Properties
     private var userMode = 0 // 0 for sign up, 1 for login
@@ -19,12 +19,28 @@ class SignUpAndLoginViewController: UIViewController {
     private let switchToSignUpModeString = "Already have an account? Login"
     private var firstTimeSetup = true
     private var usersDatabaseReference: FIRDatabaseReference? = nil
+    private var selectedTextField: UITextField?
+    lazy var positionOfViewBeforeKeyboardDidShow: CGPoint = {
+        return self.view.frame.origin
+    }()
     
     //MARK: Outlets
     @IBOutlet weak var userInfoContainerView: UIView!
-    @IBOutlet weak var username: UITextField!
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var username: UITextField! {
+        didSet {
+            username.delegate = self
+        }
+    }
+    @IBOutlet weak var email: UITextField! {
+        didSet {
+            email.delegate = self
+        }
+    }
+    @IBOutlet weak var password: UITextField! {
+        didSet {
+            password.delegate = self
+        }
+    }
     @IBOutlet weak var signUpAndLoginButton: UIButton!
     @IBOutlet weak var switchModeButton: UIButton!
     
@@ -84,11 +100,38 @@ class SignUpAndLoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         FIRDatabase.database().persistenceEnabled = false
+        
+        // Manage view tranlation when keyboard appears
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
     }
+    
+    //MARK: UITextField delegate methods + keyboard handling methods
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        selectedTextField = textField
+        return true
+    }
+    
+    func keyboardWillShow(_ notification: NSNotification) {
+        guard let keyboardRect = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
+            let selectedTextField = self.selectedTextField else { return }
+        let padding = selectedTextField.frame.size.height
+        let positionOfBottomOfTextFieldWithPadding = (selectedTextField.superview?.convert(selectedTextField.frame.origin, to: self.view))!.y + selectedTextField.frame.size.height + padding
+        if positionOfBottomOfTextFieldWithPadding > keyboardRect.origin.y {
+            view.frame.origin.y = positionOfViewBeforeKeyboardDidShow.y - ((selectedTextField.superview?.convert(selectedTextField.frame.origin, to: self.view))!.y - (keyboardRect.origin.y -  2 * selectedTextField.frame.size.height))
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+        UIView.animate(withDuration: 0.3) { [unowned self] in
+            self.view.frame.origin = self.positionOfViewBeforeKeyboardDidShow
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     // Begins the process of signing up new users

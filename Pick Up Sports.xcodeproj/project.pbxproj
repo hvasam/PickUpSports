@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		C8A42C91018B0F68BFD7B0BC /* Pods_Pick_Up_Sports.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0391885BC5FBFC3E739A4FE /* Pods_Pick_Up_Sports.framework */; };
 		F90892B51EAE92DD004D0742 /* PostGameNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90892B41EAE92DD004D0742 /* PostGameNavigationController.swift */; };
+		F9259A781ED5610E005E1583 /* OptionsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9259A771ED5610E005E1583 /* OptionsButton.swift */; };
 		F927D8E31EA5879000B4D1D8 /* AdditionalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F927D8E21EA5879000B4D1D8 /* AdditionalInfoViewController.swift */; };
 		F92A99261E8D9D31007DE0C9 /* ProblemDocumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92A99251E8D9D31007DE0C9 /* ProblemDocumentation.swift */; };
 		F92B2F021E874BC800D38038 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F92B2F011E874BC800D38038 /* GoogleService-Info.plist */; };
-		F93C32DA1E96B24C004B72C4 /* OptionsButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93C32D91E96B24C004B72C4 /* OptionsButtonManager.swift */; };
 		F958F0A51E91CC270098E996 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = F958F0A41E91CC270098E996 /* Game.swift */; };
 		F958F0A91E9574FB0098E996 /* UpcomingAndPastGamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F958F0A81E9574FB0098E996 /* UpcomingAndPastGamesViewController.swift */; };
 		F962E4571E86EC0E00F73AF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F962E4561E86EC0E00F73AF0 /* AppDelegate.swift */; };
@@ -33,11 +33,11 @@
 		9A55223340189166B6E6620D /* Pods-Pick Up Sports.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pick Up Sports.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pick Up Sports/Pods-Pick Up Sports.release.xcconfig"; sourceTree = "<group>"; };
 		A0391885BC5FBFC3E739A4FE /* Pods_Pick_Up_Sports.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pick_Up_Sports.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F90892B41EAE92DD004D0742 /* PostGameNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostGameNavigationController.swift; sourceTree = "<group>"; };
+		F9259A771ED5610E005E1583 /* OptionsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsButton.swift; path = ../OptionsButton.swift; sourceTree = "<group>"; };
 		F927D8E21EA5879000B4D1D8 /* AdditionalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalInfoViewController.swift; sourceTree = "<group>"; };
 		F92A99251E8D9D31007DE0C9 /* ProblemDocumentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProblemDocumentation.swift; sourceTree = "<group>"; };
 		F92B2F001E871EF300D38038 /* Pick Up Sports.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pick Up Sports.entitlements"; sourceTree = "<group>"; };
 		F92B2F011E874BC800D38038 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		F93C32D91E96B24C004B72C4 /* OptionsButtonManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsButtonManager.swift; sourceTree = "<group>"; };
 		F958F0A41E91CC270098E996 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		F958F0A81E9574FB0098E996 /* UpcomingAndPastGamesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpcomingAndPastGamesViewController.swift; sourceTree = "<group>"; };
 		F962E4531E86EC0E00F73AF0 /* Pick Up Sports.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pick Up Sports.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,7 +111,7 @@
 				F962E4561E86EC0E00F73AF0 /* AppDelegate.swift */,
 				F962E4581E86EC0E00F73AF0 /* SignUpAndLoginViewController.swift */,
 				F958F0A41E91CC270098E996 /* Game.swift */,
-				F93C32D91E96B24C004B72C4 /* OptionsButtonManager.swift */,
+				F9259A771ED5610E005E1583 /* OptionsButton.swift */,
 				F92A99251E8D9D31007DE0C9 /* ProblemDocumentation.swift */,
 				F958F0A81E9574FB0098E996 /* UpcomingAndPastGamesViewController.swift */,
 				F9B70C581EB18CF700413AB1 /* User.swift */,
@@ -278,8 +278,8 @@
 				F92A99261E8D9D31007DE0C9 /* ProblemDocumentation.swift in Sources */,
 				F927D8E31EA5879000B4D1D8 /* AdditionalInfoViewController.swift in Sources */,
 				F9F3FEAE1E9A2ADD00207266 /* ListOfSportsTableViewController.swift in Sources */,
-				F93C32DA1E96B24C004B72C4 /* OptionsButtonManager.swift in Sources */,
 				F962E4591E86EC0E00F73AF0 /* SignUpAndLoginViewController.swift in Sources */,
+				F9259A781ED5610E005E1583 /* OptionsButton.swift in Sources */,
 				F9B70C591EB18CF700413AB1 /* User.swift in Sources */,
 				F958F0A91E9574FB0098E996 /* UpcomingAndPastGamesViewController.swift in Sources */,
 				F962E4571E86EC0E00F73AF0 /* AppDelegate.swift in Sources */,
@@ -412,6 +412,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pick Up Sports/Pick Up Sports.entitlements";
 				DEVELOPMENT_TEAM = JL27KQB7LV;
 				INFOPLIST_FILE = "Pick Up Sports/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.harshavardhanvasam.Pick-Up-Sports";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -427,6 +428,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pick Up Sports/Pick Up Sports.entitlements";
 				DEVELOPMENT_TEAM = JL27KQB7LV;
 				INFOPLIST_FILE = "Pick Up Sports/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.harshavardhanvasam.Pick-Up-Sports";
 				PRODUCT_NAME = "$(TARGET_NAME)";
