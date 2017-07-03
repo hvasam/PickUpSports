@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		C8A42C91018B0F68BFD7B0BC /* Pods_Pick_Up_Sports.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0391885BC5FBFC3E739A4FE /* Pods_Pick_Up_Sports.framework */; };
 		F90892B51EAE92DD004D0742 /* PostGameNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90892B41EAE92DD004D0742 /* PostGameNavigationController.swift */; };
-		F9259A781ED5610E005E1583 /* OptionsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9259A771ED5610E005E1583 /* OptionsButton.swift */; };
 		F927D8E31EA5879000B4D1D8 /* AdditionalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F927D8E21EA5879000B4D1D8 /* AdditionalInfoViewController.swift */; };
 		F92A99261E8D9D31007DE0C9 /* ProblemDocumentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92A99251E8D9D31007DE0C9 /* ProblemDocumentation.swift */; };
 		F92B2F021E874BC800D38038 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F92B2F011E874BC800D38038 /* GoogleService-Info.plist */; };
@@ -21,6 +20,7 @@
 		F962E45E1E86EC0E00F73AF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F962E45D1E86EC0E00F73AF0 /* Assets.xcassets */; };
 		F962E4611E86EC0E00F73AF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F962E45F1E86EC0E00F73AF0 /* LaunchScreen.storyboard */; };
 		F96E4DF51EA28FC20002927A /* TimingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96E4DF41EA28FC20002927A /* TimingsViewController.swift */; };
+		F9AA318E1F0AFE62000031C3 /* OptionsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AA318D1F0AFE62000031C3 /* OptionsButton.swift */; };
 		F9B70C591EB18CF700413AB1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B70C581EB18CF700413AB1 /* User.swift */; };
 		F9F3FEAE1E9A2ADD00207266 /* ListOfSportsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F3FEAD1E9A2ADD00207266 /* ListOfSportsTableViewController.swift */; };
 		F9F3FEB01E9C60F300207266 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9F3FEAF1E9C60F300207266 /* MapKit.framework */; };
@@ -33,7 +33,6 @@
 		9A55223340189166B6E6620D /* Pods-Pick Up Sports.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pick Up Sports.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pick Up Sports/Pods-Pick Up Sports.release.xcconfig"; sourceTree = "<group>"; };
 		A0391885BC5FBFC3E739A4FE /* Pods_Pick_Up_Sports.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pick_Up_Sports.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F90892B41EAE92DD004D0742 /* PostGameNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostGameNavigationController.swift; sourceTree = "<group>"; };
-		F9259A771ED5610E005E1583 /* OptionsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsButton.swift; path = ../OptionsButton.swift; sourceTree = "<group>"; };
 		F927D8E21EA5879000B4D1D8 /* AdditionalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalInfoViewController.swift; sourceTree = "<group>"; };
 		F92A99251E8D9D31007DE0C9 /* ProblemDocumentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProblemDocumentation.swift; sourceTree = "<group>"; };
 		F92B2F001E871EF300D38038 /* Pick Up Sports.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pick Up Sports.entitlements"; sourceTree = "<group>"; };
@@ -48,6 +47,7 @@
 		F962E4601E86EC0E00F73AF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F962E4621E86EC0E00F73AF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F96E4DF41EA28FC20002927A /* TimingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimingsViewController.swift; sourceTree = "<group>"; };
+		F9AA318D1F0AFE62000031C3 /* OptionsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsButton.swift; sourceTree = "<group>"; };
 		F9B70C581EB18CF700413AB1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F9F3FEAD1E9A2ADD00207266 /* ListOfSportsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListOfSportsTableViewController.swift; sourceTree = "<group>"; };
 		F9F3FEAF1E9C60F300207266 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -111,11 +111,11 @@
 				F962E4561E86EC0E00F73AF0 /* AppDelegate.swift */,
 				F962E4581E86EC0E00F73AF0 /* SignUpAndLoginViewController.swift */,
 				F958F0A41E91CC270098E996 /* Game.swift */,
-				F9259A771ED5610E005E1583 /* OptionsButton.swift */,
 				F92A99251E8D9D31007DE0C9 /* ProblemDocumentation.swift */,
 				F958F0A81E9574FB0098E996 /* UpcomingAndPastGamesViewController.swift */,
 				F9B70C581EB18CF700413AB1 /* User.swift */,
 				F962E45A1E86EC0E00F73AF0 /* Main.storyboard */,
+				F9AA318D1F0AFE62000031C3 /* OptionsButton.swift */,
 				F9F72C2F1EB4EA4E006E8407 /* GameCell.swift */,
 				F9F3FEAA1E9A2A4A00207266 /* Create Game */,
 				F962E45D1E86EC0E00F73AF0 /* Assets.xcassets */,
@@ -279,7 +279,7 @@
 				F927D8E31EA5879000B4D1D8 /* AdditionalInfoViewController.swift in Sources */,
 				F9F3FEAE1E9A2ADD00207266 /* ListOfSportsTableViewController.swift in Sources */,
 				F962E4591E86EC0E00F73AF0 /* SignUpAndLoginViewController.swift in Sources */,
-				F9259A781ED5610E005E1583 /* OptionsButton.swift in Sources */,
+				F9AA318E1F0AFE62000031C3 /* OptionsButton.swift in Sources */,
 				F9B70C591EB18CF700413AB1 /* User.swift in Sources */,
 				F958F0A91E9574FB0098E996 /* UpcomingAndPastGamesViewController.swift in Sources */,
 				F962E4571E86EC0E00F73AF0 /* AppDelegate.swift in Sources */,
