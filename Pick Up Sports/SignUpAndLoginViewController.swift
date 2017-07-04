@@ -124,8 +124,8 @@ class SignUpAndLoginViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
-        UIView.animate(withDuration: 0.3) { [unowned self] in
-            self.view.frame.origin = self.positionOfViewBeforeKeyboardDidShow
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.view.frame.origin = self!.positionOfViewBeforeKeyboardDidShow
         }
     }
     
@@ -142,16 +142,16 @@ class SignUpAndLoginViewController: UIViewController, UITextFieldDelegate {
     
     // Anonymous sign-in required to access users database for email/username info.
     func anonymousSignIn() {
-        FIRAuth.auth()?.signInAnonymously { [unowned self] (user, error) in
+        FIRAuth.auth()?.signInAnonymously { [weak self] (user, error) in
             // Keep the users node synchronized by creating a database ref to it
-            self.usersDatabaseReference = FIRDatabase.database().reference().child("users")
+            self?.usersDatabaseReference = FIRDatabase.database().reference().child("users")
             
             // what does it mean to keep synced? Sychronized with offlines writes? Or, synchronized with remote database changes? Or, both?
             // Offline writes should NOT be allowed at any point in the app
-            self.usersDatabaseReference?.keepSynced(false)
+            self?.usersDatabaseReference?.keepSynced(false)
             
             // query the database to see if the username is available
-            self.checkUsernameAvailability()
+            self?.checkUsernameAvailability()
         }
     }
     
@@ -186,29 +186,29 @@ class SignUpAndLoginViewController: UIViewController, UITextFieldDelegate {
     
     // Create new user in Firebase
     func createUser() {
-        FIRAuth.auth()?.createUser(withEmail: self.email.text!, password: self.password.text!) { [unowned self] (user: FIRUser?, error: Error?) -> Void in
+        FIRAuth.auth()?.createUser(withEmail: self.email.text!, password: self.password.text!) { [weak self] (user: FIRUser?, error: Error?) -> Void in
             if let error = error {
-                self.clearAllFields()
+                self?.clearAllFields()
                 // Error in creating user in Firebase
                 let userInfo = error.localizedDescription
                 
                 // Try to create a valid error
                 guard let error = FIRAuthErrorCode(rawValue: error._code) else {
-                    self.alertForError("Unknown Error", withMessage: "Try again.")
+                    self?.alertForError("Unknown Error", withMessage: "Try again.")
                     return
                 }
                 
                 switch error {
                 case .errorCodeInvalidEmail:
-                    self.alertForError("Invalid Email", withMessage: "Please use a valid email.")
+                    self?.alertForError("Invalid Email", withMessage: "Please use a valid email.")
                 case .errorCodeEmailAlreadyInUse:
-                    self.alertForError("Email Already In Use", withMessage: "Please register with a different email.")
+                    self?.alertForError("Email Already In Use", withMessage: "Please register with a different email.")
                 case .errorCodeNetworkError:
-                    self.alertForError("Network Error", withMessage: "Check your connection.")
+                    self?.alertForError("Network Error", withMessage: "Check your connection.")
                 case .errorCodeWeakPassword:
-                    self.alertForError("Weak Password", withMessage: "\(userInfo)")
+                    self?.alertForError("Weak Password", withMessage: "\(userInfo)")
                 default:
-                    self.alertForError("Unknown Error", withMessage: "Please try again.")
+                    self?.alertForError("Unknown Error", withMessage: "Please try again.")
                 }
                 return
             }
@@ -216,7 +216,7 @@ class SignUpAndLoginViewController: UIViewController, UITextFieldDelegate {
             // Set displayname of the user in Auth/Users
             guard let user = user else { return }
             let nameSetupRequest = user.profileChangeRequest()
-            nameSetupRequest.displayName = self.username.text!
+            nameSetupRequest.displayName = self?.username.text!
             nameSetupRequest.commitChanges { (error) in
                 if error != nil {
                     // has no implications within the app currently
@@ -224,25 +224,25 @@ class SignUpAndLoginViewController: UIViewController, UITextFieldDelegate {
             }
             
             // Create user in database
-            self.usersDatabaseReference?.child(self.username.text!).setValue(["email": self.email.text!])
+            self?.usersDatabaseReference?.child(self!.username.text!).setValue(["email": self!.email.text!])
             
             // Send email verification
-            self.sendEmailVerification()
+            self?.sendEmailVerification()
             
             // Clear all text fields
-            self.clearAllFields()
+            self?.clearAllFields()
         }
     }
     
     // Send email verification
     func sendEmailVerification() {
-        FIRAuth.auth()?.currentUser?.sendEmailVerification { [unowned self] (error) in
+        FIRAuth.auth()?.currentUser?.sendEmailVerification { [weak self] (error) in
             if error != nil {
                 // Error in sending email verification
-                self.alertForError("Contact Support", withMessage: "Verification email was not sent.")
+                self?.alertForError("Contact Support", withMessage: "Verification email was not sent.")
             }
             else {
-                self.alertForError("Email Verification Sent", withMessage: "Please verify your email address.")
+                self?.alertForError("Email Verification Sent", withMessage: "Please verify your email address.")
             }
         }
     }
@@ -250,24 +250,24 @@ class SignUpAndLoginViewController: UIViewController, UITextFieldDelegate {
     // Sign in existing user with given credentials
     func signIn() {
         // Validate credentials in firebase
-        FIRAuth.auth()?.signIn(withEmail: email.text!, password: password.text!) { [unowned self] (user, error) in
+        FIRAuth.auth()?.signIn(withEmail: email.text!, password: password.text!) { [weak self] (user, error) in
             if let error = error {
-                self.clearAllFields()
+                self?.clearAllFields()
                 // failure scenarios?:
                 
                 guard let error = FIRAuthErrorCode(rawValue: error._code) else {
-                    self.alertForError("Unknown Error", withMessage: "Try again.")
+                    self?.alertForError("Unknown Error", withMessage: "Try again.")
                     return
                 }
                 switch error {
                 case .errorCodeInvalidEmail:
-                    self.alertForError("Invalid Email Address", withMessage: "Please try again.")
+                    self?.alertForError("Invalid Email Address", withMessage: "Please try again.")
                 case .errorCodeWrongPassword:
-                    self.alertForError("Incorrect Password", withMessage: "Please try again.")
+                    self?.alertForError("Incorrect Password", withMessage: "Please try again.")
                 case .errorCodeNetworkError:
-                    self.alertForError("Network Error", withMessage: "Check your connection.")
+                    self?.alertForError("Network Error", withMessage: "Check your connection.")
                 default:
-                    self.alertForError("Unknown Error", withMessage: "Please try again.")
+                    self?.alertForError("Unknown Error", withMessage: "Please try again.")
                 }
                 return
             }
@@ -275,7 +275,7 @@ class SignUpAndLoginViewController: UIViewController, UITextFieldDelegate {
             // check if email has been verified
             guard let user = user else { return }
             guard user.isEmailVerified else {
-                self.alertForError("Unverified Email Address", withMessage: "Complete the verification steps sent to your email.")
+                self?.alertForError("Unverified Email Address", withMessage: "Complete the verification steps sent to your email.")
                 return
             }
             
@@ -297,10 +297,10 @@ class SignUpAndLoginViewController: UIViewController, UITextFieldDelegate {
             })
             
             // reset login VC
-            self.clearAllFields()
+            self?.clearAllFields()
             
             // segue to successful sign-in VC
-            self.performSegue(withIdentifier: "segue", sender: self)
+            self?.performSegue(withIdentifier: "segue", sender: self)
         }
     }
 
