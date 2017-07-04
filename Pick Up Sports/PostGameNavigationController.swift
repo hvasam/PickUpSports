@@ -59,7 +59,7 @@ class PostGameNavigationController: UINavigationController, GameCreationDelegate
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
         dateFormatter.dateFormat = "yyyyMMdd"
         let dateOfGame = dateFormatter.string(from: startTime!)
-        let gameID = user.username + String(user.totalNumberOfGamesPosted + 1)
+        let gameID = user.username + "_" + String(user.totalNumberOfGamesPosted + 1)
         let gameReference = gamesDatabaseReference.child("\(dateOfGame)/\(gameID)")
         
         // Change format to include hours and minutes before saving to Firebase
